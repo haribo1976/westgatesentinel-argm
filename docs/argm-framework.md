@@ -1,6 +1,6 @@
 # ARGM: Agentic Runtime Governance Model — Framework
 
-**Version:** 1.1
+**Version:** 2.0
 **Date:** 2026-04-06
 **Licence:** CC-BY-SA 4.0
 
@@ -8,11 +8,19 @@
 
 ## 1. Purpose
 
-ARGM provides a six-level maturity framework (0-5) for assessing how organisations govern AI agents at runtime. It addresses the operational gap between existing AI governance frameworks (NIST AI RMF, ISO 42001, CMMI) and the reality of agents that write files, execute shell commands, invoke APIs, and make irreversible system state changes.
+ARGM is a domain-specific maturity profile, built on CMMI's structural conventions, for governing AI agents at runtime. It provides seven maturity levels (0–6) and a two-tier directive architecture (D0–D6) for assessing and improving how organisations control agents that write files, execute shell commands, invoke APIs, and make irreversible system state changes.
 
-Existing frameworks govern the AI lifecycle, organisational readiness, and risk management processes. None of them answer the question: what rules govern this agent's behaviour while it is running?
+ARGM complements ISO 42001 and NIST AI RMF. It does not replace them. ISO 42001 governs the AI management system lifecycle. NIST AI RMF governs risk management processes. Neither answers the question: what rules govern this agent's behaviour while it is running? ARGM answers that question.
 
-ARGM answers that question with progressive maturity levels, observable evidence requirements, assessment questions, and a seven prime directive architecture (D0–D6) governing agent behaviour from the moment of first deployment. Directive numbers encode conflict resolution priority: D0 wins unconditionally, D6 has lowest priority.
+ARGM is not a threat model — defer to AISM and MITRE ATLAS for threat enumeration and attack surface mapping. It is not a lifecycle framework — defer to ISO 42001 for management system certification. It is not an adoption model — defer to Microsoft's Agentic AI Adoption Maturity Model or Salesforce's Agentic Maturity Model for organisational readiness.
+
+The directive architecture divides into two tiers. Tier 1 (D0–D2: Safety) contains directives that are unconditional — violations cause irreversible harm and no exception mechanism applies. Tier 2 (D3–D6: Business) contains directives whose recommended order can be reconfigured by sector with documented rationale. Tier 2 never overrides Tier 1.
+
+ARGM makes three genuine contributions to the governance landscape:
+
+1. **Runtime self-monitoring as a maturity requirement.** Governance documents enforced solely by prompt-based instruction are soft constraints. ARGM treats automated governance drift detection, lint-based enforcement, and continuous compliance reporting as the defining characteristic of its highest maturity level.
+2. **Business value alignment as a governance dimension.** No surveyed framework treats the mapping of agent effort to organisational priorities as a formal governance concern. ARGM encodes this as a directive (D3) with observable evidence requirements.
+3. **Cost governance as a maturity requirement.** Token budgets, compute spend tracking, and model selection governance are treated as first-class maturity dimensions, not operational afterthoughts.
 
 ---
 
@@ -20,15 +28,18 @@ ARGM answers that question with progressive maturity levels, observable evidence
 
 ### Structural Conventions Drawn From
 
+ARGM adopts CMMI's staged maturity progression, evidence-based assessment, and cumulative level achievement as its structural foundation. The seven ARGM levels map directly to CMMI's architectural pattern: Level 0 (Incomplete/absence), progressing through increasingly capable stages to Level 6 (self-optimising governance). This is a deliberate derivation, not a coincidence.
+
 - **CMMI (v2.0/v3.0, ISACA):** Staged maturity levels where each builds on the previous. Evidence-based assessment via SCAMPI methodology. Level 0 (Incomplete) through Level 5 (Optimizing). Five factors per key process area: goals, commitment, ability, measurement, verification.
 - **NIST CSF 2.0:** Four implementation tiers (Partial, Risk Informed, Repeatable, Adaptive) describing governance rigour. Six core functions (Govern, Identify, Protect, Detect, Respond, Recover).
-- **NIST AI RMF 1.0:** Four functions (Govern, Map, Measure, Manage). Voluntary, non-prescriptive. No formal maturity tiers but supports maturity-style assessment.
+- **NIST AI RMF 1.0 and AI RMF Playbook (Feb 2025):** Four functions (Govern, Map, Measure, Manage). Voluntary, non-prescriptive. No formal maturity tiers but supports maturity-style assessment. The AI RMF Playbook provides implementation guidance. SP 800-53 AI control overlays (Aug 2025) extend security and privacy controls to cover single-agent and multi-agent AI systems.
 - **ISO 42001:2023:** Annex SL clause structure (context, leadership, planning, support, operation, performance evaluation, improvement). PDCA cycle. 38 AI-specific controls. Third-party certifiable.
 - **UK DSIT Five Principles:** Safety/security/robustness, transparency/explainability, fairness, accountability/governance, contestability/redress. Principles-based, non-statutory, regulator-interpreted.
+- **FinOps Foundation:** Established framework for cloud financial management. Defines cost governance practices (allocation, budgeting, forecasting, anomaly detection) that ARGM draws on for its agentic cost governance dimension. ARGM's contribution is applying cost governance as a maturity requirement for agentic operations specifically, not inventing cost governance as a discipline.
 
 ### Existing Agentic AI Governance Models Surveyed
 
-- **AISM (AI Sovereignty Maturity Model, Cyber Strategy Institute, 2025-2026):** Five levels (Chaos, Visibility, Governance, Control, Sovereignty). Five pillars (Shield, Ledger, Circuit Breaker, Command Center, Learning Engine). 128 controls in a Sovereignty Matrix. Dual-licensed MIT + CC-BY-SA. Closest existing model to ARGM in scope. Strong on threat modelling and non-human identity governance. No business value alignment, cost governance, or delivery standards.
+- **AISM (AI Sovereignty Maturity Model, Cyber Strategy Institute, 2025-2026):** Five levels (Chaos, Visibility, Governance, Control, Sovereignty). Five pillars (Shield, Ledger, Circuit Breaker, Command Center, Learning Engine). 128 controls in a Sovereignty Matrix. Dual-licensed MIT + CC-BY-SA. Closest existing model to ARGM in scope. Strong on threat modelling and non-human identity governance. Current AI SAFE² scope covers shell-access agent governance, alignment drift detection, sub-agent policy enforcement, and cross-agent trust boundaries. No business value alignment, cost governance, or delivery standards.
 - **Microsoft Agentic AI Adoption Maturity Model (2026):** Five levels (100-500: Initial, Repeatable, Defined, Capable, Efficient). Enterprise adoption focus across strategy, governance, technology, and organisational dimensions. Adoption readiness model, not runtime governance model.
 - **McKinsey AI Trust Maturity Model (2026):** Five dimensions (strategy, risk management, data/technology, governance, agentic AI governance). Four maturity levels. Survey of ~500 organisations. Found average RAI maturity at 2.3/4, with only ~30% at level 3+ for agentic AI governance. Benchmarking tool, not prescriptive governance framework.
 - **Salesforce Agentic Maturity Model (2025):** Four stages (single agent, multi-agent coordination, autonomous orchestration, enterprise AI ecosystem). Adoption-focused. No runtime governance specificity.
@@ -39,47 +50,65 @@ ARGM answers that question with progressive maturity levels, observable evidence
 
 ### Gaps Identified in Existing Models
 
-No existing model addresses all of the following simultaneously:
+After surveying the landscape, ARGM identifies three areas where no existing model provides adequate coverage:
 
-1. **Agentic autonomy controls** (turn limits, dry-run defaults, destructive operation prohibition, overnight safety rules)
-2. **Multi-agent routing and scope bounding** (what each agent is permitted to build, proactive vs reactive)
-3. **Runtime self-monitoring and governance drift detection** (automated verification that governance documents have not been weakened)
-4. **Business value alignment as a governance dimension** (agent effort maps to organisational revenue priorities)
-5. **Cost governance as a governance dimension** (token budgets, compute cost tracking, model selection governance)
+1. **Runtime self-monitoring and governance drift detection** — automated verification that governance documents have not been weakened, with continuous compliance reporting rather than periodic manual audit.
+2. **Business value alignment as a governance dimension** — formal governance over which work agents prioritise, defer, or reject, mapped to organisational priorities with observable evidence requirements.
+3. **Cost governance as a first-class maturity requirement** — token budgets, compute cost tracking, and model selection governance treated as governance dimensions rather than operational concerns.
 
-ARGM addresses all five.
+Other models, particularly AISM, address autonomy controls (Circuit Breaker pillar) and multi-agent scope bounding (swarm governance) at comparable or greater depth. ARGM does not claim unique coverage of these areas.
 
 ---
 
 ## 3. Design Decisions
 
-### Why Six Levels (0-5) Rather Than Five (1-5)?
+### Why Seven Levels (0–6)?
 
-CMMI v2.0 and the Secure Controls Framework C|P-CMM both include a Level 0 representing absence. Most organisations using AI coding tools today have zero explicit runtime governance. Starting at Level 1 would imply basic governance is the worst case. It is not.
+ARGM v1.1 used six levels (0–5). Level 3 activated five directives simultaneously — autonomous operation controls, value alignment, infrastructure governance, operational efficiency, and delivery standards — making it the most overloaded level in the framework. v2.0 splits this into Level 3 (Controlled: autonomous operation) and Level 4 (Aligned: business directives), distributing the governance work across two levels. The remaining levels shift accordingly: v1.1 Level 4 becomes Level 5, v1.1 Level 5 becomes Level 6.
+
+Level 0 is retained. CMMI v2.0 and the Secure Controls Framework C|P-CMM both include a Level 0 representing absence. Most organisations using AI coding tools today have zero explicit runtime governance. Starting at Level 1 would imply basic governance is the worst case. It is not.
+
+### Why a Domain-Specific CMMI Profile?
+
+CMMI's maturity structure is proven, well-understood, and widely adopted across industries. Building on it rather than inventing a new maturity architecture gives ARGM immediate structural credibility and reduces adoption friction for organisations already familiar with capability maturity assessment.
+
+The mapping is explicit and intentional. ARGM Level 0 corresponds to CMMI Level 0 (Incomplete). The progression through increasingly capable stages follows CMMI's cumulative achievement model — each level builds on the previous. ARGM is a domain-specific application of CMMI's architecture to agentic runtime governance, not a novel maturity model.
 
 ### Why Runtime Focus Rather Than Lifecycle?
 
 ISO 42001 and NIST AI RMF cover AI management system and risk management lifecycle comprehensively. Neither addresses runtime agent behaviour: what happens when agents execute code, modify files, and invoke APIs. ARGM complements lifecycle governance. It does not replace it.
 
+### Why Two-Tier Directive Architecture?
+
+D0–D2 (Safety) are unconditional because violations cause irreversible harm. A data protection failure exposes client information that cannot be unexposed. A security breach compromises credentials that must be assumed compromised forever. An unsupervised destructive operation deletes data that may not be recoverable. No sector, no business context, and no organisational priority justifies relaxing these directives.
+
+D3–D6 (Business) have a recommended order, but organisations in different sectors legitimately prioritise differently. A hospital deploying agentic AI may prioritise infrastructure governance (D4) over value alignment (D3) because system reliability is a patient safety concern. A government agency may prioritise operational efficiency (D5) over value alignment because public sector accountability demands cost justification before strategic alignment. Making Tier 2 configurable with documented rationale is honest governance, not weak governance.
+
+### Why Break-Glass for Tier 2?
+
+Real enterprise governance requires exception handling. A framework with no exception mechanism does not prevent exceptions — it drives them off-book, unlogged, and unaccountable.
+
+The break-glass mechanism for Tier 2 directives at Level 5 and above is time-bounded (72 hours maximum), requires named individual accountability, mandates immutable logging of the exception and its justification, and triggers a mandatory post-incident review. It cannot override Tier 1 directives under any circumstances. The mechanism exists because governance that accounts for operational reality is stronger than governance that pretends exceptions never happen.
+
 ### Why Business Alignment Before Full Governance?
 
-McKinsey's 2026 survey confirmed that governance lags behind technical capability. Organisations that skip business alignment and jump to comprehensive governance frameworks build frameworks disconnected from operational reality. Aligning agent effort to business value (Level 3) before formalising the full directive architecture (Level 4) ensures the framework serves the organisation.
+McKinsey's 2026 survey confirmed that governance lags behind technical capability. Organisations that skip business alignment and jump to comprehensive governance frameworks build frameworks disconnected from operational reality. The observation that alignment tends to precede effective governance is now encoded structurally in v2.0: Level 4 (Aligned) establishes business directives as a distinct maturity stage before Level 5 (Governed) integrates the full directive architecture.
 
 ### Why Cost Governance?
 
-No surveyed framework treats cost governance as a first-class maturity dimension. Token costs, compute spend, and model selection directly affect whether agentic AI operations are sustainable. An organisation running agents without cost visibility is not governed, regardless of its security posture.
+The FinOps Foundation established cloud financial management as a governance discipline. ARGM builds on this foundation by treating cost governance as a maturity requirement for agentic operations specifically. Token costs, compute spend, and model selection directly affect whether agentic AI operations are sustainable. An organisation running agents without cost visibility is not governed, regardless of its security posture. ARGM's contribution is not inventing cost governance — it is recognising that agentic operations introduce cost dynamics (per-token billing, model routing decisions, autonomous compute consumption) that require governance tailored to the agentic context.
 
-### Why Self-Monitoring at Level 5?
+### Why Self-Monitoring at Level 6?
 
-Governance documents enforced solely by prompt-based instruction are soft constraints. Models can ignore, de-prioritise, or misinterpret them. Level 5 moves governance enforcement from semantic interpretation to automated verification: lint hooks, drift detection, health reporting. The framework governs itself.
+Governance documents enforced solely by prompt-based instruction are soft constraints. Models can ignore, de-prioritise, or misinterpret them. Level 6 moves governance enforcement from semantic interpretation to automated verification: lint hooks, drift detection, health reporting. The framework governs itself.
 
-### Why Prime Directives Rather Than Pillars?
+### Why Directives Rather Than Pillars?
 
-The governance dimensions in ARGM are not pillars of equal weight to be balanced. They are directives with an unconditional conflict resolution order. When D0 (Data Protection) conflicts with D3 (Revenue Alignment), D0 wins without exception. No judgement call, no context exception, no runtime override.
+The governance dimensions in ARGM are not pillars of equal weight to be balanced. They are directives with a conflict resolution order. When D0 (Data Protection) conflicts with D3 (Value Alignment), D0 wins without exception. No judgement call, no context exception, no runtime override.
 
-The prime directive framing borrows from embedded systems governance and military doctrine: rules that must be inviolable to be functional. A pillar can be deprioritised. A directive cannot. Organisations that treat governance as a set of balanced pillars produce frameworks that erode under pressure. Organisations that treat governance as an ordered set of directives produce frameworks that hold.
+The directive framing borrows from embedded systems governance and military doctrine: rules that must be inviolable to be functional. A pillar can be deprioritised. A directive cannot. Organisations that treat governance as a set of balanced pillars produce frameworks that erode under pressure. Organisations that treat governance as an ordered set of directives produce frameworks that hold.
 
-The directives are numbered D0–D6 so the number directly encodes conflict resolution priority. D0 has highest priority. D6 has lowest. When directives conflict, the lower number wins unconditionally. The conflict resolution order is therefore always D0 > D1 > D2 > D3 > D4 > D5 > D6 — no lookup required.
+The directives are numbered D0–D6 so the number directly encodes conflict resolution priority. D0 has highest priority. D6 has lowest. Within Tier 1, the order is unconditional. Within Tier 2, the recommended order is D3 > D4 > D5 > D6, but organisations may reorder with documented rationale. Tier 2 never overrides Tier 1.
 
 ---
 
