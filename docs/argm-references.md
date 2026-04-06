@@ -1,6 +1,6 @@
 # ARGM: References
 
-**Version:** 1.1
+**Version:** 2.0
 **Licence:** CC-BY-SA 4.0
 
 ---

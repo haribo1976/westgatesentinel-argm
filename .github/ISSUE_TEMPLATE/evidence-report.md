@@ -5,7 +5,7 @@ title: '[EVIDENCE] '
 labels: evidence
 ---
 
-**ARGM Level Assessed:** (0-5)
+**ARGM Level Assessed:** (0-6)
 
 **Assessment Date:** 
 
