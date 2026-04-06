@@ -1,118 +1,89 @@
-# Agent Runtime Framework
+# ARGM: Agentic Runtime Governance Model
 
-A governance framework for autonomous AI agents operating in any commercial context. It defines how agents behave, what they build, what they refuse, and how they report — across security, business, cost, and delivery dimensions.
+**Version:** 1.0 DRAFT
+**Licence:** CC-BY-SA 4.0
 
-The framework is organised into seven pillars. Each pillar addresses a distinct class of failure mode. Pillars are ordered by priority — higher pillars override lower ones unconditionally when conflicts arise.
+ARGM provides a six-level maturity framework (0–5) for assessing how organisations govern AI agents at runtime. It addresses the operational gap between existing AI governance frameworks (NIST AI RMF, ISO 42001, CMMI) and the reality of agents that write files, execute shell commands, invoke APIs, and make irreversible system state changes.
 
-It is designed to be configured, not customised. The pillar architecture is universal. The values inside each pillar reflect the organisation deploying it.
+Existing frameworks govern the AI lifecycle, organisational readiness, and risk management processes. None of them answer the question: *what rules govern this agent's behaviour while it is running?*
 
----
-
-## The Seven Pillars
-
-| # | Pillar | Purpose | Priority |
-|---|--------|---------|----------|
-| 1 | [Data Sovereignty](pillars/01-data-sovereignty.md) | Unconditional constraint on what the agent may expose, log, or embed | Highest |
-| 2 | [Hard Boundaries](pillars/02-hard-boundaries.md) | Explicit rejection list — what the agent will never build or execute | 2 |
-| 3 | [Value Alignment](pillars/03-value-alignment.md) | Connects agent effort to organisational outcomes via a tier system | 3 |
-| 4 | [Operational Portability](pillars/04-operational-portability.md) | Governs infrastructure, authentication, and resource footprint | 4 |
-| 5 | [Output Efficiency](pillars/05-output-efficiency.md) | Maximises the ratio of value produced to resources spent | 5 |
-| 6 | [Output Quality](pillars/06-output-quality.md) | Defines what acceptable output looks like | 6 |
-| 7 | [Security & Injection Defence](pillars/07-security-injection-defence.md) | Governs agent behaviour in adversarial environments | Lowest |
-
-When pillars conflict, higher-numbered pillars yield to lower-numbered ones. Pillar 1 wins every conflict unconditionally.
+ARGM answers that question with progressive maturity levels, observable evidence requirements, assessment questions, and a seven-pillar reference architecture for full governance.
 
 ---
 
-## Autonomous Operation Controls
+## Six-Level Summary
 
-Separate from the pillars, a set of controls governs unattended execution. See [`controls/autonomous-operation.md`](controls/autonomous-operation.md).
+| Level | Name | Definition |
+|-------|------|------------|
+| 0 | Ungoverned | No runtime governance. Agent operates on default model behaviour. No explicit rules, no scope control, no security controls. |
+| 1 | Instructed | Basic prompt-level instructions in place. Governance documents define coding standards, validation gates, and behavioural expectations. Enforcement depends entirely on model compliance. |
+| 2 | Secured | Security layer added. Credential hygiene, injection defence, CORS policy, rate limiting, and pre-commit scanning enforced as technical controls, not solely prompt-based. |
+| 3 | Aligned | Business governance added. Value alignment tiers map agent effort to organisational priorities. Scope boundaries, cost constraints, and delivery standards active. |
+| 4 | Governed | Full multi-pillar operating framework active. Autonomous operation controls, conflict resolution order, third-party data isolation, and governance review cadence all enforced. |
+| 5 | Autonomous | The governance framework governs itself. Self-monitoring detects drift, reports on compliance health, and enforces governance document integrity without manual intervention. |
 
 ---
 
-## Self-Governance
+## Seven-Pillar Reference Architecture (Level 4+)
 
-The framework monitors itself. See [`controls/self-governance.md`](controls/self-governance.md).
+At Level 4 and above, governance should be organised into defined pillars. This seven-pillar architecture is a reference model. Organisations adapt pillar count and scope to their context.
 
----
+| Pillar | Name | Scope |
+|--------|------|-------|
+| P0 | Data Protection | Client data isolation, PII handling, retention limits, placeholder enforcement |
+| P1 | Revenue Alignment | Value tiers, scope boundaries, proactive vs reactive build decisions |
+| P2 | Infrastructure Portability | Tenant strategy, SKU selection, cost targets, auth architecture |
+| P3 | Delivery Standards | Output quality, branding, turnaround SLAs, formatted wrapper requirements |
+| P4 | Operational Efficiency | Automation targets, JSON output schemas, template consumption patterns |
+| P5 | Security Controls | Secrets management, CORS, rate limiting, injection defence, pre-commit scanning |
+| P6 | Autonomous Operation | Turn limits, dry-run defaults, destructive operation prohibition, overnight safety, logging |
 
-## Conflict Resolution
+**Conflict Resolution Order:** P0 > P6 > P1 > P2 > P4 > P3 > P5
 
-See [`controls/conflict-resolution.md`](controls/conflict-resolution.md).
+Data protection wins unconditionally. Autonomous operation safety overrides business priorities. Security controls (P5) rank lower than business pillars because security is non-negotiable from Level 2 upward and does not require priority arbitration in the same way business rules do.
 
 ---
 
 ## Quick Start
 
-### 1. Fork or clone this repository
-
-```bash
-git clone https://github.com/[YOUR_USERNAME]/agent-runtime-framework.git
-cd agent-runtime-framework
-```
-
-### 2. Work through the deployment checklist
-
-See [`deployment/configuration-checklist.md`](deployment/configuration-checklist.md).
-
-### 3. Configure each pillar
-
-Each file under `pillars/` contains a **Configurable Elements** section. Replace all `[PLACEHOLDER]` values with your organisation-specific settings.
-
-### 4. Review the controls
-
-The files under `controls/` define operational safety rules and the framework's own amendment process.
-
-### 5. Add deployment examples
-
-Use the stubs in `deployment/examples/` as a starting point for your vertical-specific configuration.
+1. **Assess your current level** — work through [`assessment/assessment-template.md`](assessment/assessment-template.md) using the questions for each level
+2. **Check observable evidence** — use [`assessment/evidence-checklist.md`](assessment/evidence-checklist.md) to verify what you can demonstrate today
+3. **Understand scoring** — read [`assessment/scoring-guide.md`](assessment/scoring-guide.md) for how levels are determined
+4. **Read the full framework** — [`docs/argm-framework.md`](docs/argm-framework.md) contains sections 1–5 (purpose, research foundation, design decisions, level definitions, seven-pillar architecture)
+5. **See cross-framework mappings** — [`docs/argm-mapping.md`](docs/argm-mapping.md) maps ARGM to NIST CSF, CMMI, NIST AI RMF, ISO 42001, AISM, and Microsoft's model
+6. **Review examples** — the [`examples/`](examples/) directory contains illustrative governance configurations at each level
 
 ---
 
 ## Repository Structure
 
 ```
-agent-runtime-framework/
-├── pillars/
-│   ├── 01-data-sovereignty.md
-│   ├── 02-hard-boundaries.md
-│   ├── 03-value-alignment.md
-│   ├── 04-operational-portability.md
-│   ├── 05-output-efficiency.md
-│   ├── 06-output-quality.md
-│   └── 07-security-injection-defence.md
-├── controls/
-│   ├── autonomous-operation.md
-│   ├── self-governance.md
-│   └── conflict-resolution.md
-├── deployment/
-│   ├── configuration-checklist.md
-│   └── examples/
-│       ├── professional-services.md
-│       ├── software-development.md
-│       ├── healthcare.md
-│       ├── financial-services.md
-│       └── public-sector.md
+argm/
+├── docs/
+│   ├── argm-framework.md        # Sections 1–5: full model
+│   ├── argm-mapping.md          # Section 6: cross-framework mapping
+│   ├── argm-gap-analysis.md     # Section 7: gap analysis
+│   ├── argm-naming.md           # Section 8: naming rationale
+│   └── argm-references.md       # Section 10: references
+├── assessment/
+│   ├── assessment-template.md   # All assessment questions, grouped by level
+│   ├── scoring-guide.md         # How to determine level
+│   └── evidence-checklist.md    # Observable evidence per level
+├── examples/
+│   ├── level-1-claude-md.md     # Example CLAUDE.md at Level 1
+│   ├── level-2-security.md      # Example security controls configuration
+│   ├── level-3-directives.md    # Example value alignment / prime directives
+│   ├── level-4-framework.md     # Example full pillar framework
+│   └── level-5-monitoring.md    # Example governance drift detection config
 ├── .github/
 │   ├── CONTRIBUTING.md
 │   └── ISSUE_TEMPLATE/
 │       ├── bug_report.md
 │       └── feature_request.md
-├── CHANGELOG.md
-└── LICENSE
+├── README.md
+├── LICENCE
+└── CHANGELOG.md
 ```
-
----
-
-## Design Principles
-
-**Structural over advisory.** Rules that matter are enforced structurally, not stated as preferences. Advisory rules belong in documentation, not in the runtime governance layer.
-
-**Configured, not customised.** The pillar architecture is universal. The values inside each pillar reflect the organisation deploying it.
-
-**Portability.** The framework contains no vendor-specific dependencies in its governance layer. It applies to any agent runtime, any model provider, any infrastructure target, any vertical.
-
-**Third-party isolation.** External tooling configuration is excluded from governance thresholds and health reporting. When a violation fires, it is always actionable.
 
 ---
 
@@ -124,4 +95,4 @@ See [`.github/CONTRIBUTING.md`](.github/CONTRIBUTING.md).
 
 ## Licence
 
-MIT — see [`LICENSE`](LICENSE).
+CC-BY-SA 4.0 — see [`LICENCE`](LICENCE).

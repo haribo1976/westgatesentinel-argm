@@ -1,6 +1,6 @@
 ---
 name: Feature request
-description: Propose a new pillar, control, example, or framework improvement
+description: Propose a new level element, cross-framework mapping, example, or framework improvement
 title: "[FEATURE] "
 labels: ["enhancement"]
 assignees: []
@@ -8,24 +8,24 @@ assignees: []
 
 ## Summary
 
-<!-- A clear and concise description of what you are proposing. -->
+<!-- What are you proposing? -->
 
 ## Motivation
 
-<!-- Why is this change needed? What problem does it solve? -->
+<!-- Why is this needed? What gap does it fill? -->
 
-## Affected Pillar or Control
+## Affected Section
 
-<!-- Which pillar or control would this affect, or is this a new addition? -->
+<!-- Which section or level would this affect, or is this a new addition? -->
 
 ## Proposed Change
 
-<!-- Describe the change you would like to see. Include draft text if possible. -->
+<!-- Describe the change. Include draft wording if possible — precision matters for assessment validity. -->
 
 ## Alternatives Considered
 
-<!-- Have you considered other approaches? Why did you choose this one? -->
+<!-- Other approaches and why this one is preferred. -->
 
 ## Additional Context
 
-<!-- Any other context, references, or prior art. -->
+<!-- References, related models, prior art. -->

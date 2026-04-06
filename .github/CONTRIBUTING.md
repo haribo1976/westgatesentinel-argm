@@ -1,77 +1,66 @@
-# Contributing to Agent Runtime Framework
+# Contributing to ARGM
 
-Thank you for your interest in contributing. This document explains how to propose changes to the framework.
+Thank you for your interest in contributing to the Agentic Runtime Governance Model.
 
 ---
 
 ## Before You Open a Pull Request
 
-1. **Open an issue first.** Describe the change you are proposing, why it is needed, and which pillar or control it affects. This allows discussion before implementation effort is invested.
+1. **Open an issue first.** Describe the change, which section or level it affects, and why it is needed.
 2. **Check existing issues.** Your proposal may already be under discussion.
-3. **Read the self-governance control.** [`controls/self-governance.md`](../controls/self-governance.md) defines the amendment process, review requirements, and prohibited amendments.
+3. **Read the self-assessment framework.** Changes to level definitions, observable evidence, or assessment questions affect the validity of assessments already conducted against the model.
 
 ---
 
-## Scope of Contributions
+## What We Welcome
 
-The following contributions are welcome:
-
-- **Bug fixes**: Corrections to factual errors, broken links, or internal inconsistencies
-- **Pillar improvements**: Clarifications, additional reasoning, or improved configurable element descriptions
-- **New deployment examples**: Configuration stubs for verticals not yet covered — keep these as stubs with `[TODO: ...]` placeholders; do not include real organisation data
-- **Control improvements**: Amendments to the autonomous operation, self-governance, or conflict resolution controls
-- **Tooling**: Scripts or templates that help operators deploy the framework
-
----
-
-## One Pillar Per Pull Request
-
-Keep pull requests focused. Each PR should touch at most one pillar or control. This makes review faster and reduces the risk of unintended interactions.
+- **Corrections to level definitions or evidence requirements** — if evidence items are ambiguous, incorrect, or missing
+- **New or improved assessment questions** — questions that better probe a level's requirements
+- **Cross-framework mapping corrections** — if a mapping to NIST, CMMI, ISO 42001, or other frameworks is incorrect or outdated
+- **New cross-framework mappings** — mappings to frameworks not yet covered in Section 6
+- **Deployment examples** — illustrative examples at each level for new contexts or stacks (keep these as representative shapes, not fabricated configurations)
+- **Gap analysis updates** — as new agentic AI governance models are published
 
 ---
 
-## Configuration Examples Are Welcome
+## One Level or Section Per Pull Request
 
-If you have deployed the framework in a new vertical and want to share a sanitised configuration stub, open a PR adding a new file under `deployment/examples/`. The file must:
-
-- Contain only `[TODO: ...]` placeholders — no real organisation names, domains, costs, or configuration values
-- Follow the structure of the existing example files
-- Include a brief Organisation Context section with the vertical name
+Keep pull requests focused. Each PR should address at most one level or one section of the framework. This preserves reviewability and makes change history traceable.
 
 ---
 
-## Commit Message Convention
+## Content Standards
 
-This repository uses [Conventional Commits](https://www.conventionalcommits.org/):
+- Keep content generic — no organisation-specific names, internal references, or pricing
+- Use `[PLACEHOLDER]` format for values that must be filled in by the deploying organisation
+- Preserve verbatim wording from the source framework where possible — wording precision matters for assessment validity
+- Section numbers from the source document should be preserved in `docs/` files
+
+---
+
+## Commit Convention
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
 
 | Prefix | Use for |
 |--------|---------|
-| `feat:` | New pillars, controls, or examples |
-| `fix:` | Corrections and bug fixes |
-| `docs:` | Documentation improvements |
-| `chore:` | Maintenance, tooling, changelog updates |
-| `refactor:` | Restructuring without behavioural change |
+| `feat:` | New levels, pillars, or framework additions |
+| `fix:` | Corrections to evidence, questions, or mappings |
+| `docs:` | Documentation and example improvements |
+| `chore:` | Maintenance, changelog, tooling |
 
 ---
 
 ## Pull Request Checklist
 
-Before submitting a pull request, confirm:
-
-- [ ] An issue exists for this change and is referenced in the PR description
-- [ ] The PR touches at most one pillar or control
-- [ ] No real organisation names, credentials, or configuration values are included
-- [ ] The `CHANGELOG.md` has been updated with a new version entry
-- [ ] The PR description explains what changed and why
-
----
-
-## Review Process
-
-All pull requests require at least one review from a repository maintainer. Pull requests that amend the universal hard boundaries (Pillar 02) or disable the security injection defence (Pillar 07) require an extraordinary review as defined in `controls/self-governance.md`.
+- [ ] Issue exists and is referenced in the PR description
+- [ ] PR touches at most one level or section
+- [ ] No organisation-specific names, credentials, or internal references
+- [ ] CHANGELOG.md updated with version entry
+- [ ] PR description explains what changed and why
 
 ---
 
 ## Licence
 
-By contributing to this repository, you agree that your contributions will be licensed under the MIT Licence.
+By contributing, you agree that your contributions are licensed under CC-BY-SA 4.0.

@@ -1,6 +1,6 @@
 ---
 name: Bug report
-description: Report an error, inconsistency, or broken behaviour in the framework
+description: Report an error, inconsistency, or broken content in the framework
 title: "[BUG] "
 labels: ["bug"]
 assignees: []
@@ -10,22 +10,22 @@ assignees: []
 
 <!-- A clear and concise description of the problem. -->
 
-## Affected Pillar or Control
+## Affected Section or Level
 
-<!-- Which pillar or control file contains the issue? e.g. "pillars/01-data-sovereignty.md" -->
+<!-- Which file and section contains the issue? e.g. "docs/argm-framework.md, Level 3 Observable Evidence" -->
 
-## Current Behaviour
+## Current Content
 
-<!-- What does the framework currently say or do? -->
+<!-- What does the framework currently say? -->
 
-## Expected Behaviour
+## Expected Content
 
-<!-- What should it say or do instead? -->
+<!-- What should it say instead? -->
 
-## Steps to Reproduce
+## Why This Matters for Assessment
 
-<!-- If applicable, describe how to encounter the issue. -->
+<!-- How does this error affect assessments conducted using this framework? -->
 
 ## Additional Context
 
-<!-- Any other context, screenshots, or references. -->
+<!-- References, related issues, or other context. -->
