@@ -1,9 +1,11 @@
 # ARGM Evidence Checklist
 
-**Version:** 1.1
+**Version:** 2.0
 **Licence:** CC-BY-SA 4.0
 
 Use this checklist during assessment. Tick each item where evidence has been observed. A level is achieved when all items are ticked for that level and all preceding levels.
+
+Items marked `[CRITICAL]` are non-negotiable. A level cannot be awarded if any critical item is unticked.
 
 ---
 
@@ -29,7 +31,7 @@ These items represent the absence of governance. Confirm which apply before asse
 - [ ] Context management rules present: how agents handle long conversations, what to include in prompts
 - [ ] Basic file structure discipline: agents know where to write and where not to
 - [ ] "Do not" list: prohibited actions or files the agent must not modify
-- [ ] D0 (Data Protection) acknowledged as unconditional even if full hierarchy not yet defined
+- [ ] D0 (Data Protection) acknowledged as highest-priority principle in governance document
 
 ---
 
@@ -41,7 +43,8 @@ These items represent the absence of governance. Confirm which apply before asse
 - [ ] Scripts read secrets from env vars, not parameters
 
 **Pre-commit Scanning**
-- [ ] Git hooks or CI stages scan for: `sk_`, `pk_`, `eyJ`, `API_KEY=`, `SECRET=`, `Bearer`, `client_secret=`, `PRIVATE_KEY`, `Authorization:`
+- [ ] `[CRITICAL]` Git hooks or CI stages scan for: `sk_`, `pk_`, `eyJ`, `API_KEY=`, `SECRET=`, `Bearer`, `client_secret=`, `PRIVATE_KEY`, `Authorization:`
+- [ ] `[CRITICAL]` D0 (Data Protection) enforced by technical controls: pre-commit scan for client names/PII, .gitignore for sensitive files
 
 **CORS Policy**
 - [ ] No `Access-Control-Allow-Origin: *` in production
@@ -70,49 +73,63 @@ These items represent the absence of governance. Confirm which apply before asse
 
 ---
 
-## Level 3 — Aligned
+## Level 3 — Controlled
 
-**Value Alignment**
-- [ ] Documented hierarchy of work priorities (primary, secondary, enablement, reject)
-- [ ] Scope boundaries: explicit list of permitted builds, approval-required builds, and prohibited builds
-
-**Cost Governance**
-- [ ] Token usage tracked per agent, per task, per period
-- [ ] Budget thresholds with alerts configured
-- [ ] Evidence of at least one cost-related decision
-
-**Delivery Standards**
-- [ ] Output quality gates defined: branded templates, executive summary length limits, turnaround SLAs
-- [ ] No raw script output without formatted wrapper
-
-**Conflict Resolution**
-- [ ] D0 > D1 > D2 > D3 > D4 > D5 > D6 — documented, declared unconditional
-- [ ] Agent task classification in use: each task tagged by value tier before execution
-
-**Autonomous Operation (initial)**
-- [ ] Dry-run defaults: write operations default to dry-run unless explicitly scheduled
-- [ ] Destructive operation prohibition: no deletions without explicit human authorisation and logging
+**Autonomous Operation Controls**
+- [ ] `[CRITICAL]` Maximum agent turn limits per task defined and enforced
+- [ ] Clean exit conditions when limits reached
+- [ ] Dry-run default for all scheduled/unattended operations
+- [ ] No destructive operations without explicit human authorisation and logging
+- [ ] No external API calls or email sends without explicit authorisation flag
+- [ ] Full logging of every write operation: timestamp, operation type, record ID, outcome
+- [ ] No PII in logs or stdout
+- [ ] Overnight/scheduled task safety rules documented
 
 ---
 
-## Level 4 — Governed
+## Level 4 — Aligned
+
+**Value Alignment**
+- [ ] Documented hierarchy of work priorities with sector-appropriate terminology
+- [ ] Scope boundaries: explicit list of permitted, approval-required, and prohibited builds
+- [ ] Decision mechanism for task classification (flowchart, rules, or prompt-based)
+
+**Cost Governance**
+- [ ] `[CRITICAL]` Model selection policy documented (when to use which model tier)
+- [ ] Budget allocation: per-agent, per-project, or per-period budgets defined
+- [ ] Cost attribution: costs mapped to value tiers
+- [ ] Escalation thresholds configured (alerts at defined budget percentages)
+- [ ] Evidence of at least one cost-influenced decision in the past 90 days
+- [ ] Monthly cost review with trend analysis
+
+**Delivery Standards**
+- [ ] Output quality gates defined
+- [ ] No raw unformatted output without wrapper
+
+**Conflict Resolution**
+- [ ] Tier 1 (D0 > D1 > D2) documented as unconditional
+- [ ] Tier 2 ordering documented with sector-specific rationale
+- [ ] Agent task classification in use: each task tagged by value tier before execution
+
+---
+
+## Level 5 — Governed
 
 **Unified Framework**
-- [ ] Single document or document set encoding all prime directives D0–D6
+- [ ] Single document or document set encoding all directives D0–D6 with tier assignments
 - [ ] Governance organised as named, numbered directives with explicit conflict resolution order
 
-**Autonomous Operation Controls**
-- [ ] Maximum agent turn limits per task defined and enforced
-- [ ] Clean exit conditions when limits reached
-- [ ] Dry-run default for all scheduled/unattended operations
-- [ ] No destructive operations without explicit human scheduling
-- [ ] No external API calls or email sends without explicit authorisation flag
-- [ ] Full logging of every write operation: timestamp, operation, record ID, outcome
-- [ ] No PII in logs or stdout
+**Break-Glass Mechanism**
+- [ ] `[CRITICAL]` Break-glass procedure documented for Tier 2 exceptions
+- [ ] Named accountable individual required (not role, not team)
+- [ ] Time-bounded (72h maximum, non-renewable without fresh approval)
+- [ ] Immutable log entry for each break-glass activation
+- [ ] Post-incident review within 5 business days
+- [ ] Tier 1 (D0–D2) explicitly excluded from break-glass
 
 **Third-party Isolation**
-- [ ] No client names, tenant IDs, PII, or commercial pricing in repositories, logs, or agent output
-- [ ] Placeholder syntax enforced (`{{CLIENT_NAME}}`, `{{TENANT_ID}}`)
+- [ ] No client names, tenant IDs, PII, or commercial pricing in repositories, logs, or output
+- [ ] Placeholder syntax enforced
 
 **Governance Review**
 - [ ] Evidence of scheduled reviews (quarterly minimum)
@@ -123,27 +140,30 @@ These items represent the absence of governance. Confirm which apply before asse
 
 ---
 
-## Level 5 — Autonomous
+## Level 6 — Autonomous
 
 **Governance Drift Detection**
-- [ ] Automated mechanism compares current governance documents against known-good baseline
+- [ ] `[CRITICAL]` Automated mechanism compares governance documents against known-good baseline
+- [ ] Baseline updated on each approved governance change
 - [ ] Deviation triggers alert
 
 **Lint Hooks on Governance Files**
 - [ ] Validate governance document structure (required sections present)
-- [ ] Check for prohibited content (hardcoded secrets, client names, tenant IDs)
-- [ ] Verify directive numbering (D0–D6) and conflict resolution order are intact
-- [ ] Flag weakening of security non-negotiables
+- [ ] Check for prohibited content (secrets, client names, tenant IDs)
+- [ ] Verify directive numbering (D0–D6) and tier assignments intact
+- [ ] Flag weakening of Tier 1 requirements
 
 **Automated Health Reporting**
 - [ ] Machine-generated compliance reports at defined intervals (weekly minimum)
-- [ ] Reports cover: governance document currency, security control compliance, business alignment adherence, autonomous operation compliance
+- [ ] Reports cover: governance document currency, security control compliance, cost governance adherence, autonomous operation compliance
 
-**Third-party Isolation Verification**
-- [ ] Automated scanning of all agent outputs, logs, and repository contents for client-identifying data patterns
+**Three-Layer Regress Assurance**
+- [ ] Technical layer: integrity checks operational
+- [ ] Organisational layer: designated governance owner documented with change control authority
+- [ ] `[CRITICAL]` External layer: periodic review (quarterly minimum) by someone outside the governance-building team
 
 **Change Control on Governance**
-- [ ] Modifications require pull request review from designated governance owner
+- [ ] Modifications require pull request review from governance owner
 - [ ] Force pushes to governance files blocked
 
 **Governance Versioning**
