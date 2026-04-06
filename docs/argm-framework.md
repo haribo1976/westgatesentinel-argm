@@ -434,18 +434,77 @@ Level 6 is not a destination. It is a sustained capability. Organisations do not
 
 ## 5. Prime Directive Architecture (D0–D6)
 
-At Level 4 and above, governance is organised as seven numbered prime directives. Each directive has defined scope and a fixed conflict resolution position. This is the reference architecture. Organisations adapt directive scope to their context but must preserve the conflict resolution order — it is the architecture's operating principle.
+At Level 4 and above, governance is organised as seven numbered prime directives arranged in a two-tier architecture. Each directive has defined scope and a conflict resolution position determined by its tier and number. This is the reference architecture. Organisations adapt directive scope and Tier 2 ordering to their context but must preserve the tier boundary — Tier 1 is unconditional and not subject to configuration.
+
+### 5.1 Two-Tier Architecture
+
+| Tier | Directives | Behaviour |
+|------|-----------|-----------|
+| Tier 1 — Safety | D0, D1, D2 | Unconditional. Not configurable. No break-glass. |
+| Tier 2 — Business | D3, D4, D5, D6 | Recommended order. Sector-configurable with documented rationale. Break-glass available at Level 5+. |
+
+Tier 1 always overrides Tier 2. Within each tier, a lower directive number wins.
+
+### 5.2 Directive Reference
 
 | Directive | Name | Scope |
 |-----------|------|-------|
 | D0 | Data Protection | Client data isolation, PII handling, retention limits, placeholder enforcement |
 | D1 | Security Controls | Secrets management, CORS, rate limiting, injection defence, pre-commit scanning |
 | D2 | Autonomous Operation | Turn limits, dry-run defaults, destructive operation prohibition, overnight safety, logging |
-| D3 | Revenue Alignment | Value tiers, scope boundaries, proactive vs reactive build decisions |
-| D4 | Infrastructure Portability | Tenant strategy, SKU selection, cost targets, auth architecture |
+| D3 | Value Alignment | Value tiers, scope boundaries, proactive vs reactive build decisions |
+| D4 | Infrastructure Governance | Tenant strategy, SKU selection, cost targets, auth architecture |
 | D5 | Operational Efficiency | Automation targets, JSON output schemas, template consumption patterns |
-| D6 | Delivery Standards | Output quality, branding, turnaround SLAs, formatted wrapper requirements |
+| D6 | Delivery Standards | Output quality, formatting requirements, turnaround expectations |
 
-**Conflict Resolution Order:** D0 > D1 > D2 > D3 > D4 > D5 > D6
+### 5.3 Conflict Resolution
 
-D0 wins unconditionally — no client data, PII, or confidential pricing leaves the boundary in any scenario. D1 (Security Controls) ranks second because a security failure causes irreversible harm and is non-negotiable from Level 2 onward; it does not compete with business directives, it precedes them. D2 (Autonomous Operation) wins over all business directives — an agent operating without supervision must not take destructive or irreversible actions regardless of business priority. D3 overrides D4, D5, and D6 — revenue-generating work takes precedence over infrastructure choices, efficiency optimisation, and delivery formatting.
+**Tier 1 (unconditional):** D0 > D1 > D2. No exceptions. No runtime override. No break-glass.
+
+D0 wins because data protection violations — PII exposure, client data leaks, confidential pricing disclosure — cause irreversible regulatory and reputational harm. Once client data is exposed, it cannot be unexposed. No business justification, no operational pressure, and no time constraint changes this.
+
+D1 ranks second because security failures are non-negotiable from Level 2 onward. A compromised credential must be assumed compromised forever. Security does not compete with business directives — it precedes them.
+
+D2 wins over all business directives because an unsupervised agent must not take destructive or irreversible actions regardless of business priority. An agent that deletes production data because a business directive told it to optimise storage has failed governance, not succeeded at efficiency. Autonomous operation safety is the gate through which all business directives must pass.
+
+**Tier 2 (configurable):** Default order D3 > D4 > D5 > D6. Organisations may reorder Tier 2 directives with documented rationale specific to their operating context.
+
+Within Tier 2, the default order reflects a professional services perspective: value-generating client work (D3) takes precedence over infrastructure decisions (D4), which take precedence over operational efficiency (D5), which takes precedence over delivery formatting (D6). Other sectors have legitimate reasons to reorder — see Section 5.4.
+
+### 5.4 Sector Configuration Examples
+
+The following examples illustrate how different sectors might reorder Tier 2 directives. Tier 1 (D0 > D1 > D2) remains unconditional and identical across all sectors.
+
+| Sector | Tier 2 Order | Rationale |
+|--------|-------------|-----------|
+| Professional services / consultancy | D3 > D4 > D5 > D6 | Revenue-generating client work takes precedence. Default order. |
+| Healthcare | D4 > D3 > D5 > D6 | Infrastructure resilience for patient-facing systems outranks value alignment. System availability is a patient safety concern. |
+| Public sector / government | D5 > D4 > D3 > D6 | Operational efficiency of citizen services is primary. No commercial revenue to align against. Accountability demands cost justification before strategic alignment. |
+| Open-source / research | D5 > D6 > D4 > D3 | Efficiency and documentation quality outrank infrastructure and value alignment. Community adoption depends on output quality and low friction. |
+
+These are starting points. Organisations should document their chosen order with rationale specific to their operating context. A hospital's rationale for D4 > D3 will differ from a medical device manufacturer's rationale for the same ordering. The rationale matters more than the order.
+
+### 5.5 Break-Glass Exception Mechanism
+
+The break-glass mechanism is available at Level 5 and above for Tier 2 directives only. It exists because governance that accounts for operational reality is stronger than governance that pretends exceptions never happen. A framework with no exception mechanism does not prevent exceptions — it drives them off-book, unlogged, and unaccountable.
+
+**Requirements:**
+
+1. **Named accountable individual.** Not a team, not a role, not a committee — a person, identified by name in the log. Accountability that cannot be attributed to a specific individual is not accountability.
+2. **Time-bounded: 72 hours maximum.** The exception expires automatically. Non-renewable without fresh approval from a different authorising individual or the same individual with a new documented justification. Rolling renewals of the same exception indicate a governance gap, not an operational need.
+3. **Documented justification before activation.** The justification must exist in the log before the exception takes effect. Retrospective justification is not permitted — it reverses the accountability chain.
+4. **Immutable log entry.** Timestamp, authorising individual, directive overridden, justification, and expiry recorded in a log that cannot be retroactively modified. If the logging infrastructure does not support immutability, the log must be append-only with access controls that prevent deletion or modification.
+5. **Post-incident review within 5 business days of expiry.** The review assesses whether the exception was justified, whether the underlying governance gap should be addressed, and whether the framework should be updated to prevent recurrence. A review that concludes "justified, no changes needed" is valid. A review that does not occur is a governance failure.
+6. **Cannot override Tier 1 (D0, D1, D2) under any circumstances.** Any attempt to invoke the break-glass mechanism against a Tier 1 directive is itself a governance failure, not an exception request. The correct response is to fix the underlying problem, not to override the safety directive. If an organisation believes it needs a D0/D1/D2 exception, the framework's answer is: no. Redesign the approach.
+
+### 5.6 Directive Evolution
+
+The directive architecture is designed to be stable but not frozen. Governance frameworks that cannot evolve become irrelevant. Governance frameworks that evolve without discipline become incoherent.
+
+**Adding a directive (e.g., D7):** Requires governance review, documented rationale for why the existing directives do not cover the new concern, and explicit assignment to Tier 1 or Tier 2. New Tier 1 directives require extraordinary justification — the safety tier should remain small. Every addition to Tier 1 increases the unconditional constraint surface and reduces operational flexibility. The burden of proof is on the proposer to demonstrate irreversible-harm potential comparable to D0, D1, or D2.
+
+**Removing or deprecating a directive:** Mark as deprecated in one version, remove in the next. Deprecation requires evidence that the directive's scope is fully covered by other directives or that the governance concern is no longer applicable. A directive cannot be removed solely because it is inconvenient to enforce.
+
+**Reordering within Tier 2:** Permitted with documented rationale at any governance review. The rationale must explain why the new order better reflects the organisation's operating context. Reordering without rationale is not permitted — the default order (D3 > D4 > D5 > D6) applies until a documented alternative is approved.
+
+**Moving between tiers:** Promoting a Tier 2 directive to Tier 1 requires evidence of irreversible-harm potential — that violations of this directive cause damage that cannot be reversed, remediated, or compensated after the fact. Demoting a Tier 1 directive to Tier 2 is prohibited without board-level or executive approval, and requires evidence that the directive's scope no longer carries irreversible-harm potential. The asymmetry is deliberate: it should be hard to weaken the safety tier.
