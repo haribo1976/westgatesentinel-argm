@@ -1,6 +1,6 @@
 # ARGM: Naming Rationale
 
-**Version:** 1.1
+**Version:** 2.0
 **Licence:** CC-BY-SA 4.0
 
 ---
@@ -25,3 +25,14 @@
 
 - **AROG** (Agentic Runtime Operations Governance): "a rogue" connotation
 - **RAGA** (Runtime Agent Governance Assessment): "raga" is established music term
+
+## Structural Heritage
+
+ARGM adopts CMMI's staged maturity progression, evidence-based assessment, and cumulative level achievement as its structural foundation. The level mapping between ARGM and CMMI is intentional, not coincidental — ARGM is a domain-specific maturity profile for AI agent runtime governance built on proven maturity model conventions.
+
+The decision to build on CMMI rather than invent a novel maturity architecture reflects two considerations:
+
+1. **Structural credibility.** CMMI's maturity model has been refined over three decades across thousands of organisations. Adopting its conventions gives ARGM immediate structural familiarity for governance professionals.
+2. **Reduced adoption friction.** Organisations already assessed against CMMI or similar models can map ARGM levels to their existing maturity understanding without learning a new framework structure.
+
+ARGM avoids the names "CMMI-AI" and "AI-CMM" to prevent trademark proximity to ISACA, not to obscure the structural relationship.
