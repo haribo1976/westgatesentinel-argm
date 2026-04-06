@@ -1,46 +1,55 @@
 # Control — Autonomous Operation
 
-## Purpose
-
-Define the safety rules that apply when the agent operates without continuous human supervision — including overnight tasks, scheduled runs, and background workflows.
+**Safety rules for unattended and scheduled execution.**
 
 ---
 
-## Reasoning
+## Purpose
+
+Define the safety constraints that apply whenever the agent operates without real-time human oversight — including overnight tasks, scheduled runs, and background workflows.
+
+---
+
+## Why These Controls Exist
 
 Autonomous operation amplifies both capability and risk. A supervised agent that makes a mistake can be corrected immediately. An unsupervised agent that makes a mistake may complete many subsequent steps before the error is noticed, compounding the impact.
 
-This control applies a conservative safety posture to autonomous operation. It does not prevent automation; it constrains what automation may do without human sign-off.
+These controls apply a conservative safety posture. They do not prevent automation — they constrain what automation may do without human sign-off, and they make the blast radius of a misconfigured run recoverable.
 
 ---
 
-## Rules
+## Controls
 
-### Dry-Run Default
+### Turn Limit
 
-1. Autonomous tasks must default to dry-run mode unless the operator has explicitly enabled live execution for that task.
-2. Dry-run output must clearly indicate what would have been changed, created, or deleted.
-3. The agent must not interpret absence of operator feedback as approval to proceed from dry-run to live execution.
+Every autonomous run has a maximum turn count. The agent exits cleanly when the limit is reached rather than continuing indefinitely. On exit, the agent saves its state and produces a progress report.
 
-### Destructive Operations
+### Safe-Run Default
 
-1. The agent must not perform any destructive operation autonomously. Destructive operations include but are not limited to:
-   - Deleting files, records, or resources
-   - Overwriting data without backup
-   - Revoking access or permissions
-   - Deprovisioning infrastructure
-   - Sending external communications that cannot be recalled
-2. If a workflow requires a destructive operation, the agent must pause, report the pending operation, and wait for explicit human approval before proceeding.
+All scheduled and unattended runs operate in a non-destructive mode unless explicitly promoted to live execution. A misconfigured safe run produces a report, not irreversible changes. The promotion from safe-run to live must be an explicit, auditable operator action — not an assumption or a default.
 
-### Turn Limits
+### Destructive Operation Prohibition
 
-1. Autonomous sessions must not exceed the configured maximum turn limit without a human checkpoint.
-2. If the turn limit is reached, the agent must save its state, report progress and any blockers, and suspend until resumed by a human operator.
+No record deletion, no irreversible modifications, no destructive operations during unattended runs without explicit authorisation at run time. If a workflow reaches a step that requires a destructive operation, it must pause, report the pending operation, and wait for explicit human approval before proceeding.
 
-### PII in Logs
+Destructive operations include but are not limited to:
+- Deleting files, records, or resources
+- Overwriting data without a backup
+- Revoking access or permissions
+- Deprovisioning infrastructure
+- Sending external communications that cannot be recalled
 
-1. Autonomous task logs must not contain PII (see Pillar 01).
-2. Log entries must be sufficient for audit purposes without including personal data.
+### Write Logging
+
+Every write operation during an autonomous run is logged with: timestamp, operation type, record identifier, and outcome. Write logs are retained for the configured period and are excluded from sensitive data handling (they contain only operational metadata, not the data being written).
+
+### Sensitive Data Exclusion from Logs
+
+Operational logs contain only metadata. No sensitive or personally identifiable information appears in process output or log files. See Pillar 01 for the full data sovereignty rules that apply to log content.
+
+### External Call Gating
+
+Calls to external systems during unattended runs require an explicit flag. Silent outbound calls during overnight or scheduled execution are prohibited by default. If a workflow needs to make external calls, this must be declared at run configuration time.
 
 ---
 
@@ -50,17 +59,20 @@ This control applies a conservative safety posture to autonomous operation. It d
 # autonomous-operation configuration
 # Replace all [PLACEHOLDER] values before deployment.
 
-# Maximum number of turns (agent-to-tool or agent-to-agent exchanges) in a single autonomous session.
-# Example: 50
+# Maximum number of turns in a single autonomous session.
 max_turns_per_session: "[MAX_TURNS]"
 
-# Whether dry-run mode is the default for autonomous tasks.
-# Strongly recommended: true
-dry_run_default: true
+# Behaviour when turn limit is reached.
+# Options: "checkpoint" (save state and pause), "abort" (terminate session)
+turn_limit_behaviour: "checkpoint"
 
-# Operations that are unconditionally forbidden in autonomous mode.
-# Extend this list with organisation-specific operations.
-forbidden_operations:
+# Whether safe-run mode is the default for autonomous tasks.
+# Strongly recommended: true
+safe_run_default: true
+
+# Operations that are unconditionally prohibited in autonomous mode.
+# Extend with organisation-specific operations.
+prohibited_operations:
   - "delete"
   - "drop"
   - "truncate"
@@ -68,11 +80,14 @@ forbidden_operations:
   - "deprovision"
   - "send-email"
   - "send-message"
-  - "[ADDITIONAL_FORBIDDEN_OPERATION]"
+  - "[ADDITIONAL_PROHIBITED_OPERATION]"
 
-# Whether the agent must checkpoint progress at the turn limit or may continue.
-# Options: "checkpoint" (pause and report), "abort" (terminate session)
-turn_limit_behaviour: "checkpoint"
+# How long write logs are retained.
+# Format: ISO 8601 duration.
+write_log_retention: "[WRITE_LOG_RETENTION_PERIOD]"
+
+# Whether external calls require an explicit flag.
+external_call_gating_enabled: true
 ```
 
 ---
@@ -81,8 +96,9 @@ turn_limit_behaviour: "checkpoint"
 
 ```yaml
 max_turns_per_session: 50
-dry_run_default: true
-forbidden_operations:
+turn_limit_behaviour: "checkpoint"
+safe_run_default: true
+prohibited_operations:
   - "delete"
   - "drop"
   - "truncate"
@@ -90,5 +106,6 @@ forbidden_operations:
   - "deprovision"
   - "send-email"
   - "send-message"
-turn_limit_behaviour: "checkpoint"
+write_log_retention: "P30D"
+external_call_gating_enabled: true
 ```

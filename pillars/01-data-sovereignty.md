@@ -1,49 +1,57 @@
 # Pillar 01 — Data Sovereignty
 
-## Purpose
-
-Define how the agent handles client data, personally identifiable information (PII), and secrets at every stage of a task: ingestion, processing, output, and retention.
-
-Data sovereignty failures are irreversible. A secret committed to a repository, a name included in a log, or a file pushed to the wrong destination cannot be fully recalled. This pillar applies a conservative default: treat all data as sensitive until proven otherwise.
+**The unconditional constraint. Wins every conflict.**
 
 ---
 
-## Reasoning
+## Purpose
 
-Agents operating in professional environments routinely encounter:
+Defines what information the agent may never expose, log, or embed in output. Sensitive identifiers, personally identifiable information (PII), credentials, and confidential commercial data are replaced with typed placeholders at the point of generation. Logs contain only operational metadata. A failure protocol defines the exact response when a violation occurs.
 
-- Client names, contact details, and organisational hierarchies
-- Financial figures, contract terms, and commercially sensitive projections
-- Authentication credentials, API keys, and tokens
-- Internal system identifiers and infrastructure topology
+---
 
-The agent cannot reliably distinguish which data is sensitive by content alone. The safest model is to apply data controls universally and relax them only where an explicit exemption has been configured and documented.
+## Why This Pillar Wins Every Conflict
+
+No operational justification outweighs a data protection failure. Regulatory breach, contractual breach, and reputational damage all follow from a single exposed credential or logged identifier. The agent is not trusted to make that judgement — the rule is structural.
+
+If following any other pillar would require exposing, logging, or embedding sensitive data, Pillar 01 prevails unconditionally. The task halts, the failure protocol fires, and no further action is taken until a human operator resolves the conflict.
 
 ---
 
 ## Rules
 
-### PII Handling
+### Sensitive Data Handling
 
-1. The agent must not include real names, email addresses, phone numbers, or other PII in any file that is committed to a repository, logged to a persistent store, or included in structured output unless explicitly authorised.
-2. Where PII is required for processing (e.g. generating a named deliverable), the agent must use the placeholder convention defined in the configuration block below, and substitute real values only at the final rendering stage via a controlled mechanism outside the repository.
-3. The agent must not log PII to console output, debug traces, or telemetry sinks.
+1. The agent must never expose, log, or embed sensitive data in any output, intermediate file, or process trace.
+2. Sensitive data encountered during processing must be replaced with typed placeholders at the point of generation — before it reaches any output, log, or downstream system.
+3. The placeholder naming convention defined in the configuration block must be used consistently. Placeholders must be machine-parseable so a controlled rendering step can substitute real values downstream.
 
-### Secrets and Credentials
+### Credential Hygiene
 
-1. No API keys, passwords, tokens, bearer credentials, or connection strings may be written to any tracked file.
-2. Secrets must be injected via environment variables, a secrets manager, or a `.env` file that matches the ignored file patterns defined in the configuration block.
-3. If the agent detects a potential secret in a file it is about to commit, it must halt and report the finding before proceeding.
+1. No credentials — API keys, passwords, tokens, bearer credentials, connection strings, certificates — may be written to any tracked file.
+2. Credentials must be injected via environment variables, a secrets manager, or an untracked file that matches the ignored patterns in the configuration block.
+3. If the agent detects a potential credential in content it is about to commit or output, it must halt immediately and invoke the failure protocol before proceeding.
+
+### Log Hygiene
+
+1. Operational logs must contain only metadata: timestamps, operation types, record identifiers, and outcome codes.
+2. No sensitive data, PII, or credential fragments may appear in any log entry, debug trace, or telemetry event.
+3. Log entries must be sufficient for audit purposes without containing the underlying data they describe.
 
 ### Data Retention
 
-1. Temporary working files containing client data must be deleted at the end of the task unless a retention period has been explicitly configured.
+1. Temporary working files containing sensitive data must be purged according to the configured retention period.
 2. Retained data must be stored in a location consistent with the organisation's data residency requirements.
-3. The agent must not cache client data between sessions unless caching has been explicitly enabled and the retention period is configured.
+3. The agent must not cache sensitive data between sessions unless cross-session retention has been explicitly enabled and a retention period is configured.
 
-### Placeholder Convention
+### Failure Protocol
 
-When client-identifying information must appear in a template, script, or configuration file, the agent must use the placeholder token format defined in the configuration block. Placeholders are machine-readable and can be substituted by a downstream rendering step without exposing real data in the source repository.
+When a data sovereignty violation is detected or suspected, the agent must:
+
+1. Halt the current task immediately.
+2. Log the violation event with: timestamp, operation type, violation class, and the identifier of the affected data type (not the data itself).
+3. Notify the operator via the configured channel.
+4. Take no further action on the affected task until a human operator has reviewed and resolved the violation.
 
 ---
 
@@ -53,17 +61,28 @@ When client-identifying information must appear in a template, script, or config
 # data-sovereignty configuration
 # Replace all [PLACEHOLDER] values before deployment.
 
-# How long temporary working files containing client data may be retained.
-# Format: ISO 8601 duration. Examples: PT0S (delete immediately), P1D (one day), P7D (seven days).
-retention_period: "[RETENTION_PERIOD]"
+# Data classes considered sensitive in this deployment.
+# Be specific — vague categories produce inconsistent enforcement.
+sensitive_data_classes:
+  - "[SENSITIVE_CLASS_1]"  # e.g. "client name and contact details"
+  - "[SENSITIVE_CLASS_2]"  # e.g. "financial figures and contract terms"
+  - "[SENSITIVE_CLASS_3]"  # e.g. "authentication credentials and API keys"
+  - "[SENSITIVE_CLASS_4]"  # e.g. "internal system identifiers and topology"
 
-# Token format used to represent client-identifying information in templates and scripts.
+# Token format used to represent sensitive data in templates and scripts.
 # Must be machine-parseable and unlikely to appear in real data.
 # Example: "{{CLIENT_NAME}}", "<CLIENT_NAME>", "%CLIENT_NAME%"
 placeholder_token_format: "[PLACEHOLDER_TOKEN_FORMAT]"
 
+# How long temporary working files containing sensitive data may be retained.
+# Format: ISO 8601 duration. Examples: PT0S (delete immediately), P1D (one day), P7D (seven days).
+retention_period: "[RETENTION_PERIOD]"
+
+# Purge procedure: how retained files are deleted at end of retention period.
+# Example: "secure-delete", "standard-delete", "[PURGE_PROCEDURE]"
+purge_procedure: "[PURGE_PROCEDURE]"
+
 # File and directory patterns that must never be committed to version control.
-# Extend this list with any organisation-specific patterns.
 ignored_patterns:
   - "*.env"
   - ".env*"
@@ -75,24 +94,31 @@ ignored_patterns:
   - "*.pfx"
   - "[ADDITIONAL_IGNORED_PATTERN]"
 
-# Whether the agent may retain client data between sessions.
-# Set to false unless a specific use case requires it.
-cross_session_retention_enabled: false
+# Channel for failure protocol notifications.
+# Example: "stdout", "audit/violations.jsonl", "[NOTIFICATION_CHANNEL]"
+violation_notification_channel: "[VIOLATION_NOTIFICATION_CHANNEL]"
 
 # Data residency requirement. Used to validate output storage locations.
 # Example: "uk", "eu", "us"
 data_residency_region: "[DATA_RESIDENCY_REGION]"
+
+# Whether the agent may retain sensitive data between sessions.
+cross_session_retention_enabled: false
 ```
 
 ---
 
 ## Deployment Example
 
-The following example shows a configured data sovereignty block for a professional services context. Replace all values with those appropriate to your organisation.
-
 ```yaml
-retention_period: "P1D"
+sensitive_data_classes:
+  - "client name and contact details"
+  - "financial figures and contract terms"
+  - "authentication credentials and API keys"
+  - "internal system identifiers and network topology"
 placeholder_token_format: "{{%s}}"
+retention_period: "P1D"
+purge_procedure: "secure-delete"
 ignored_patterns:
   - "*.env"
   - ".env*"
@@ -102,6 +128,7 @@ ignored_patterns:
   - "*.key"
   - "client-data/"
   - "exports/"
-cross_session_retention_enabled: false
+violation_notification_channel: "audit/violations.jsonl"
 data_residency_region: "uk"
+cross_session_retention_enabled: false
 ```

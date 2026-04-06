@@ -1,16 +1,18 @@
 # Pillar 05 — Output Efficiency
 
-## Purpose
-
-Automate the repeatable. Ensure that scripts produce structured, machine-readable output, and that templates consume structured output. Reserve human time for interpretation, judgement, and decisions that require context the agent does not have.
+**Maximises the ratio of value produced to resources spent.**
 
 ---
 
-## Reasoning
+## Purpose
 
-The most common efficiency failure in agent-assisted work is not slow execution — it is unstructured output. When an agent produces prose, markdown tables, or free-form reports that must then be manually reformatted before they can be used, it creates a hidden labour cost that erodes the benefit of automation.
+Mandates automation of repeatable tasks, structured output from all processes, template-driven production, and formatted wrappers on all output. Human time is reserved for interpretation, decisions, and exceptions — the agent handles production.
 
-This pillar requires the agent to produce output in a declared schema wherever the output will be consumed by another system, script, or template. It also requires the agent to use templates for any output that has a fixed structure, rather than generating that structure from scratch each time.
+---
+
+## Why This Pillar Exists
+
+The value proposition of autonomous agents depends on producing usable output without manual post-processing. An agent that generates raw, unformatted output requiring human intervention to use eliminates much of the efficiency gain. Structured output means downstream systems and humans consume agent output directly.
 
 ---
 
@@ -20,7 +22,8 @@ This pillar requires the agent to produce output in a declared schema wherever t
 2. Scripts that produce reports, assessments, or inventories must write structured output (JSON, YAML, or CSV as appropriate) in addition to any human-readable summary.
 3. The agent must use the configured template stack for deliverable types that have a template. It must not generate deliverable structure from scratch if a template exists.
 4. Human-readable summaries may accompany structured output but must not replace it.
-5. The agent must not produce output in a format that requires the recipient to perform structural transformation before use.
+5. The agent must not produce output that requires the recipient to perform structural transformation before use.
+6. Repeatable tasks must be automated. If a task has been performed manually more than once, the agent should flag it as an automation candidate.
 
 ---
 
@@ -30,28 +33,36 @@ This pillar requires the agent to produce output in a declared schema wherever t
 # output-efficiency configuration
 # Replace all [PLACEHOLDER] values before deployment.
 
+# Output formats your downstream systems and humans consume.
+# Determines what the agent produces by default.
+downstream_formats:
+  - "[FORMAT_1]"  # e.g. "json", "csv", "markdown", "html"
+  - "[FORMAT_2]"
+
 # Primary output schema for structured machine-readable output.
-# Example: "json-schema/output-v1.json", "inline", "[SCHEMA_PATH]"
 output_schema: "[OUTPUT_SCHEMA_PATH]"
 
-# Default structured output format for scripts.
+# Default structured format for script output.
 # Options: "json", "yaml", "csv", "ndjson"
 default_structured_format: "json"
 
 # Template stack. Maps deliverable types to template file paths.
-# Add an entry for each deliverable type the agent is expected to produce.
 template_stack:
   - type: "[DELIVERABLE_TYPE_1]"
     template: "[TEMPLATE_PATH_1]"
   - type: "[DELIVERABLE_TYPE_2]"
     template: "[TEMPLATE_PATH_2]"
 
-# Whether the agent may generate deliverable structure from scratch if no template exists.
-# Set to false to require a template for all structured deliverables.
+# Whether the agent may generate deliverable structure without a template.
 allow_templateless_generation: true
 
 # Directory where structured output files are written.
 output_directory: "[OUTPUT_DIRECTORY]"
+
+# Automation targets: task classes that should always be automated, never manual.
+automation_targets:
+  - "[AUTOMATION_TARGET_1]"  # e.g. "inventory generation"
+  - "[AUTOMATION_TARGET_2]"  # e.g. "report compilation"
 ```
 
 ---
@@ -59,6 +70,9 @@ output_directory: "[OUTPUT_DIRECTORY]"
 ## Deployment Example
 
 ```yaml
+downstream_formats:
+  - "json"
+  - "markdown"
 output_schema: "schemas/output-v1.json"
 default_structured_format: "json"
 template_stack:
@@ -70,4 +84,8 @@ template_stack:
     template: "templates/remediation-plan.md"
 allow_templateless_generation: true
 output_directory: "output/"
+automation_targets:
+  - "Inventory generation from live systems"
+  - "Report compilation from structured data"
+  - "Configuration export and diff"
 ```

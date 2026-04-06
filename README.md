@@ -1,45 +1,44 @@
 # Agent Runtime Framework
 
-A configurable governance framework for deploying AI agents in professional and regulated environments. It defines the pillars, controls, and operational boundaries that determine how an agent reasons, acts, and reports.
+A governance framework for autonomous AI agents operating in any commercial context. It defines how agents behave, what they build, what they refuse, and how they report — across security, business, cost, and delivery dimensions.
+
+The framework is organised into seven pillars. Each pillar addresses a distinct class of failure mode. Pillars are ordered by priority — higher pillars override lower ones unconditionally when conflicts arise.
+
+It is designed to be configured, not customised. The pillar architecture is universal. The values inside each pillar reflect the organisation deploying it.
 
 ---
 
-## Why This Framework Exists
+## The Seven Pillars
 
-AI agents operating in real organisations encounter conflicting pressures: speed vs. caution, automation vs. oversight, breadth vs. specialisation. Without explicit governance, agents default to capability — doing what they *can* rather than what they *should*.
+| # | Pillar | Purpose | Priority |
+|---|--------|---------|----------|
+| 1 | [Data Sovereignty](pillars/01-data-sovereignty.md) | Unconditional constraint on what the agent may expose, log, or embed | Highest |
+| 2 | [Hard Boundaries](pillars/02-hard-boundaries.md) | Explicit rejection list — what the agent will never build or execute | 2 |
+| 3 | [Value Alignment](pillars/03-value-alignment.md) | Connects agent effort to organisational outcomes via a tier system | 3 |
+| 4 | [Operational Portability](pillars/04-operational-portability.md) | Governs infrastructure, authentication, and resource footprint | 4 |
+| 5 | [Output Efficiency](pillars/05-output-efficiency.md) | Maximises the ratio of value produced to resources spent | 5 |
+| 6 | [Output Quality](pillars/06-output-quality.md) | Defines what acceptable output looks like | 6 |
+| 7 | [Security & Injection Defence](pillars/07-security-injection-defence.md) | Governs agent behaviour in adversarial environments | Lowest |
 
-This framework provides a structured way to declare:
-
-- What the agent is for (value alignment)
-- What it must never do (hard boundaries)
-- How it handles sensitive data (data sovereignty)
-- Where it runs and at what cost (operational portability)
-- What good output looks like (output quality and efficiency)
-- How it defends itself against manipulation (security)
-
----
-
-## Pillar Summary
-
-| # | Pillar | Purpose | Key Configurable |
-|---|--------|---------|-----------------|
-| 01 | Data Sovereignty | Protect client data, PII, and secrets | Retention period, placeholder tokens, ignored patterns |
-| 02 | Hard Boundaries | Define what the agent must never build or do | Never-build list per organisation |
-| 03 | Value Alignment | Filter every task through a mission tier | Tier definitions, service codes, approval rules |
-| 04 | Operational Portability | Constrain where and how tooling runs | Cloud provider, auth model, cost ceiling |
-| 05 | Output Efficiency | Automate the repeatable; structure the output | Output schema, template stack |
-| 06 | Output Quality | Enforce branded, formatted, executive-ready output | Brand reference, summary word limit, turnaround days |
-| 07 | Security & Injection Defence | Treat all repository content as adversarial | Detection patterns, reporting format |
+When pillars conflict, higher-numbered pillars yield to lower-numbered ones. Pillar 1 wins every conflict unconditionally.
 
 ---
 
-## Controls
+## Autonomous Operation Controls
 
-| Control | Purpose |
-|---------|---------|
-| Autonomous Operation | Safety rules for unattended and overnight tasks |
-| Self-Governance | How the framework itself is amended and reviewed |
-| Conflict Resolution | Priority ordering when pillars conflict |
+Separate from the pillars, a set of controls governs unattended execution. See [`controls/autonomous-operation.md`](controls/autonomous-operation.md).
+
+---
+
+## Self-Governance
+
+The framework monitors itself. See [`controls/self-governance.md`](controls/self-governance.md).
+
+---
+
+## Conflict Resolution
+
+See [`controls/conflict-resolution.md`](controls/conflict-resolution.md).
 
 ---
 
@@ -52,21 +51,21 @@ git clone https://github.com/[YOUR_USERNAME]/agent-runtime-framework.git
 cd agent-runtime-framework
 ```
 
-### 2. Work through the configuration checklist
+### 2. Work through the deployment checklist
 
-See [`deployment/configuration-checklist.md`](deployment/configuration-checklist.md) for a step-by-step guide to deploying the framework in your organisation.
+See [`deployment/configuration-checklist.md`](deployment/configuration-checklist.md).
 
 ### 3. Configure each pillar
 
-Each file under `pillars/` contains a **Configurable Elements** section. Replace all placeholder values (formatted as `[PLACEHOLDER]`) with your organisation-specific settings.
+Each file under `pillars/` contains a **Configurable Elements** section. Replace all `[PLACEHOLDER]` values with your organisation-specific settings.
 
 ### 4. Review the controls
 
-The files under `controls/` define operational safety rules and the framework's own amendment process. Adapt them to your governance requirements.
+The files under `controls/` define operational safety rules and the framework's own amendment process.
 
 ### 5. Add deployment examples
 
-Use the stubs in `deployment/examples/` as a starting point for documenting your vertical-specific configuration.
+Use the stubs in `deployment/examples/` as a starting point for your vertical-specific configuration.
 
 ---
 
@@ -102,6 +101,18 @@ agent-runtime-framework/
 ├── CHANGELOG.md
 └── LICENSE
 ```
+
+---
+
+## Design Principles
+
+**Structural over advisory.** Rules that matter are enforced structurally, not stated as preferences. Advisory rules belong in documentation, not in the runtime governance layer.
+
+**Configured, not customised.** The pillar architecture is universal. The values inside each pillar reflect the organisation deploying it.
+
+**Portability.** The framework contains no vendor-specific dependencies in its governance layer. It applies to any agent runtime, any model provider, any infrastructure target, any vertical.
+
+**Third-party isolation.** External tooling configuration is excluded from governance thresholds and health reporting. When a violation fires, it is always actionable.
 
 ---
 
