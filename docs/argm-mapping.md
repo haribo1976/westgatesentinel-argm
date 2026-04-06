@@ -161,8 +161,10 @@ done
 Use `--max-turns` flag for all unattended runs:
 
 ```bash
-claude --max-turns 15 --dangerously-skip-permissions "run overnight task"
+claude --max-turns 15 --allowedTools "Read,Write,Edit,Bash" "run overnight task"
 ```
+
+> Never use `--dangerously-skip-permissions`. Scope permissions explicitly using `--allowedTools` or permission mode flags.
 
 Add to `CLAUDE.md`:
 
