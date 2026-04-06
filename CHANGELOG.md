@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] — 2026-04-06
+
+### Added
+
+- `docs/argm-mapping.md`: new section "ARGM Prime Directive Enforcement by Agent" covering all eight agents (Claude Code, Cursor, Codex CLI, Amp, Gemini CLI, Droid CLI, OpenCode, Ollama)
+- Summary mapping table: D0–D6 enforcement mechanism per agent with coverage ratings (Full / Partial / Minimal)
+- Per-agent configuration guidance: D0–D6 implementation for each agent including governance files, hook configurations, turn limit enforcement, and compensating controls
+- Governance consistency controls: shared governance repository, unified pre-commit hook, turn limit wrapper pattern, drift detection, and agent capability register
+
+---
+
 ## [0.2.0] — 2026-04-06
 
 ### Changed
