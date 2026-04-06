@@ -1,8 +1,7 @@
-# ARGM: Agentic Runtime Governance Model — Full Framework
+# ARGM: Agentic Runtime Governance Model — Framework
 
-**Version:** 1.0 DRAFT
+**Version:** 1.1
 **Date:** 2026-04-06
-**Author:** [AUTHOR]
 **Licence:** CC-BY-SA 4.0
 
 ---
@@ -13,7 +12,7 @@ ARGM provides a six-level maturity framework (0-5) for assessing how organisatio
 
 Existing frameworks govern the AI lifecycle, organisational readiness, and risk management processes. None of them answer the question: what rules govern this agent's behaviour while it is running?
 
-ARGM answers that question with progressive maturity levels, observable evidence requirements, assessment questions, and a seven-pillar reference architecture for full governance.
+ARGM answers that question with progressive maturity levels, observable evidence requirements, assessment questions, and a seven prime directive architecture (D0–D6) governing agent behaviour from the moment of first deployment. Directive numbers encode conflict resolution priority: D0 wins unconditionally, D6 has lowest priority.
 
 ---
 
@@ -64,7 +63,7 @@ ISO 42001 and NIST AI RMF cover AI management system and risk management lifecyc
 
 ### Why Business Alignment Before Full Governance?
 
-McKinsey's 2026 survey confirmed that governance lags behind technical capability. Organisations that skip business alignment and jump to comprehensive governance frameworks build frameworks disconnected from operational reality. Aligning agent effort to business value (Level 3) before formalising the full pillar architecture (Level 4) ensures the framework serves the organisation.
+McKinsey's 2026 survey confirmed that governance lags behind technical capability. Organisations that skip business alignment and jump to comprehensive governance frameworks build frameworks disconnected from operational reality. Aligning agent effort to business value (Level 3) before formalising the full directive architecture (Level 4) ensures the framework serves the organisation.
 
 ### Why Cost Governance?
 
@@ -74,11 +73,19 @@ No surveyed framework treats cost governance as a first-class maturity dimension
 
 Governance documents enforced solely by prompt-based instruction are soft constraints. Models can ignore, de-prioritise, or misinterpret them. Level 5 moves governance enforcement from semantic interpretation to automated verification: lint hooks, drift detection, health reporting. The framework governs itself.
 
+### Why Prime Directives Rather Than Pillars?
+
+The governance dimensions in ARGM are not pillars of equal weight to be balanced. They are directives with an unconditional conflict resolution order. When D0 (Data Protection) conflicts with D3 (Revenue Alignment), D0 wins without exception. No judgement call, no context exception, no runtime override.
+
+The prime directive framing borrows from embedded systems governance and military doctrine: rules that must be inviolable to be functional. A pillar can be deprioritised. A directive cannot. Organisations that treat governance as a set of balanced pillars produce frameworks that erode under pressure. Organisations that treat governance as an ordered set of directives produce frameworks that hold.
+
+The directives are numbered D0–D6 so the number directly encodes conflict resolution priority. D0 has highest priority. D6 has lowest. When directives conflict, the lower number wins unconditionally. The conflict resolution order is therefore always D0 > D1 > D2 > D3 > D4 > D5 > D6 — no lookup required.
+
 ---
 
 ## 4. Level Definitions
 
-### Level 0 — Ungoverned
+### Level 0 - Ungoverned
 
 **Definition:** No runtime governance. Agent operates on default model behaviour. No explicit rules, no scope control, no security controls.
 
@@ -112,7 +119,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 
 ---
 
-### Level 1 — Instructed
+### Level 1 - Instructed
 
 **Definition:** Basic prompt-level instructions in place. Governance documents define coding standards, validation gates, context management rules, and behavioural expectations. Agent behaviour is guided but enforcement depends entirely on model compliance. No security layer, no business alignment, no cost controls.
 
@@ -126,6 +133,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 - No security-specific controls (no injection defence, no credential hygiene, no CORS policy)
 - No business priority alignment
 - No cost tracking or token budget constraints
+- Conflict resolution order not yet defined — Level 1 acknowledges that D0 (Data Protection) takes unconditional precedence; full directive hierarchy established at Level 3
 
 **Progression Criteria (to reach Level 2):**
 1. Implement credential hygiene: all secrets in environment variables, .env in .gitignore, pre-commit scanning for leaked secrets
@@ -144,15 +152,15 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 **Assessment Questions:**
 1. Show me the governance documents that instruct your AI agents. When were they last reviewed and by whom?
 2. How do you verify that agents actually follow instructions? Show me evidence of a recent violation and how it was detected.
-3. What happens when an agent encounters conflicting instructions? Is there a documented conflict resolution order?
+3. What happens when an agent encounters conflicting instructions? Is there a documented conflict resolution order? Even at Level 1, D0 (Data Protection) must be unconditional — is this explicit in the governance document?
 4. How do you manage governance document size as they grow? What is your context window strategy?
 5. Demonstrate an agent completing a task end-to-end and trace which governance rules applied at each decision point.
 
 ---
 
-### Level 2 — Secured
+### Level 2 - Secured
 
-**Definition:** Security layer added on top of instructional foundation. Credential hygiene, injection defence, CORS policy, rate limiting, and pre-commit scanning enforced as non-negotiable requirements. Security controls exist as both documented requirements and enforced technical controls, not solely prompt-based. Agent operates securely but without business context.
+**Definition:** D1 (Security Controls) enforced on top of instructional foundation. Credential hygiene, injection defence, CORS policy, rate limiting, and pre-commit scanning enforced as non-negotiable requirements. Security controls exist as both documented requirements and enforced technical controls, not solely prompt-based. D0 (Data Protection) active from this level. Agent operates securely but without business context or directive hierarchy beyond D0 and D1.
 
 **Observable Evidence:**
 - **Secrets management:** All API keys, tokens, credentials in environment variables or secret managers. .env and .dev.vars in .gitignore. Scripts read secrets from env vars, not parameters.
@@ -169,7 +177,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 2. Establish scope boundaries: what the agent builds proactively vs reactively
 3. Implement cost governance: token budgets, compute cost tracking, threshold alerts
 4. Define delivery standards: output quality gates, formatting requirements, turnaround expectations
-5. Document a conflict resolution order for when business rules conflict
+5. Document the full directive conflict resolution order (D0 > D1 > D2 > D3 > D4 > D5 > D6) and declare it unconditional with no runtime exceptions
 
 **Common Failure Modes:**
 - Security as ceiling — treating security as the end goal rather than a foundation
@@ -187,22 +195,22 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 
 ---
 
-### Level 3 — Aligned
+### Level 3 - Aligned
 
-**Definition:** Business governance added on top of security foundation. Value alignment tiers map agent effort to organisational priorities. Scope boundaries prevent agents building outside their mandate. Cost constraints cap token spend and compute usage. Delivery standards enforce output quality. The agent operates securely and its work maps to what the organisation values most.
+**Definition:** D2 (Autonomous Operation), D3 (Revenue Alignment), D4 (Infrastructure Portability), D5 (Operational Efficiency), and D6 (Delivery Standards) activated. Value alignment tiers map agent effort to organisational priorities. Scope boundaries prevent agents building outside their mandate. Cost constraints cap token spend. Delivery standards enforce output quality. The full directive conflict resolution order (D0 > D1 > D2 > D3 > D4 > D5 > D6) is documented and declared unconditional at this level.
 
 **Observable Evidence:**
 - **Value alignment tiers:** Documented hierarchy of work priorities (primary, secondary, enablement, reject) governing proactive vs reactive build decisions
 - **Scope boundaries:** Explicit list of permitted builds, approval-required builds, and prohibited builds regardless of request
 - **Cost governance:** Token usage tracked per agent, per task, per period. Budget thresholds with alerts. Evidence of at least one cost-related decision (pausing a task, choosing a smaller model, deferring non-priority work)
 - **Delivery standards:** Output quality gates: branded templates, executive summary length limits, turnaround SLAs, no raw script output without formatted wrapper
-- **Conflict resolution order:** Documented, unconditional priority order for when governance rules conflict
+- **Conflict resolution order:** D0 > D1 > D2 > D3 > D4 > D5 > D6 — documented, declared unconditional, applied to all directive conflicts. D0 (Data Protection) wins without exception.
 - **Agent task classification:** Each agent task tagged by value tier before execution begins
 - **Dry-run defaults:** Write operations default to dry-run mode unless explicitly scheduled for live execution
 - **Destructive operation prohibition:** Agents cannot delete records, objects, or infrastructure without explicit human authorisation and logging
 
 **Progression Criteria (to reach Level 4):**
-1. Unify all governance pillars (instruction, security, business alignment) into a single operating framework with named pillars
+1. Unify all active directives (D0, D1, D2, D3, D4, D5, D6) into a single governance document encoding each directive's scope, requirements, and conflict resolution position
 2. Activate autonomous operation controls: turn limits, exit conditions, overnight safety rules
 3. Formalise conflict resolution order as unconditional (no exceptions, no runtime overrides)
 4. Implement third-party isolation: agent-generated content does not leak client data, pricing, or internal strategy
@@ -224,13 +232,13 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 
 ---
 
-### Level 4 — Governed
+### Level 4 - Governed
 
-**Definition:** Full multi-pillar operating framework active. All security, business, and delivery controls operate as an integrated system. Autonomous operation controls active: turn limits, exit conditions, overnight safety rules. Conflict resolution order unconditional and documented. Third-party data isolation enforced. The framework constitutes a complete governance system auditable end-to-end.
+**Definition:** All seven prime directives (D0–D6) active and integrated. Security, business, delivery, and autonomous operation controls operate as a single directive-governed system. D2 (Autonomous Operation) fully active: turn limits, exit conditions, overnight safety rules. Conflict resolution order unconditional and enforced at the framework level, not reliant on model compliance. D0 (Data Protection) enforced by automated controls. The framework constitutes a complete governance system auditable end-to-end.
 
 **Observable Evidence:**
-- **Unified governance framework:** Single document or document set defining all pillars: instruction standards, security non-negotiables, business alignment, delivery standards, autonomous operation controls, data protection, conflict resolution order
-- **Pillar architecture:** Governance organised into named, numbered pillars (not ad hoc rules scattered across files)
+- **Unified governance framework:** Single document or document set encoding all prime directives D0–D6: data protection, security controls, autonomous operation, revenue alignment, infrastructure portability, operational efficiency, delivery standards, and conflict resolution order
+- **Directive architecture:** Governance organised as named, numbered directives D0–D6 with explicit conflict resolution order — not ad hoc rules scattered across files
 - **Autonomous operation controls:**
   - Maximum agent turn limits per task (e.g., 15 turns for overnight tasks)
   - Clean exit conditions when limits reached
@@ -240,7 +248,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
   - Full logging of every write operation: timestamp, operation, record ID, outcome
   - No PII in logs or stdout: log only operation name, record count, status code, error code
 - **Third-party isolation:** No client names, tenant IDs, PII, or commercial pricing in repositories, logs, or agent output. Placeholder syntax enforced (`{{CLIENT_NAME}}`, `{{TENANT_ID}}`)
-- **Conflict resolution order:** Documented priority sequence for all pillars, declared unconditional. Data protection wins without exception.
+- **Conflict resolution order:** D0 > D1 > D2 > D3 > D4 > D5 > D6 — documented as unconditional. D0 (Data Protection) wins without exception. No runtime override permitted.
 - **Governance review cadence:** Evidence of scheduled reviews (quarterly minimum) with documented changes, rationale, and approval
 - **Cross-agent consistency:** Same governance framework applied to all agents in the environment, not the primary agent only
 
@@ -259,7 +267,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 - Governance document bloat — framework exceeds context window capacity, fragmenting enforcement
 
 **Assessment Questions:**
-1. Show me your complete governance framework. How many pillars, and how are inter-pillar conflicts resolved?
+1. Show me your complete governance framework. Identify each prime directive (D0–D6), state its scope, and demonstrate how directive conflicts resolve in practice.
 2. Demonstrate an overnight or unattended agent task. Show turn limits, exit conditions, dry-run defaults, and logging in operation.
 3. How do you enforce third-party data isolation? Show a recent agent output and confirm no client-identifying data in version control or logs.
 4. Is this framework applied consistently across all AI agents? Show evidence for at least two different agents.
@@ -267,7 +275,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 
 ---
 
-### Level 5 — Autonomous
+### Level 5 - Autonomous
 
 **Definition:** The governance framework governs itself. Self-monitoring layer detects governance drift, reports on compliance health, and enforces governance document integrity without manual intervention. Lint hooks validate governance files on every commit. Automated health reports generated on a defined schedule. Changes to governance documents trigger alerts and require review. Continuous assurance achieved: an assessor can verify compliance at any point without triggering a manual audit.
 
@@ -279,7 +287,7 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 - **Lint hooks on governance files:** Pre-commit or CI hooks that:
   - Validate governance document structure (required sections present)
   - Check for prohibited content (hardcoded secrets, client names, tenant IDs)
-  - Verify conflict resolution order is intact and unconditional
+  - Verify directive numbering (D0–D6) and conflict resolution order (D0 > D1 > D2 > D3 > D4 > D5 > D6) are intact and unconditional
   - Flag weakening of security non-negotiables (e.g., removal of rate limiting requirements)
 - **Automated health reporting:** Machine-generated compliance reports at defined intervals (weekly minimum) covering:
   - Governance document currency (last review date, days since last change)
@@ -306,20 +314,20 @@ Governance documents enforced solely by prompt-based instruction are soft constr
 
 ---
 
-## 5. Seven-Pillar Reference Architecture (Level 4+)
+## 5. Prime Directive Architecture (D0–D6)
 
-At Level 4 and above, governance should be organised into defined pillars. This seven-pillar architecture is a reference model. Organisations adapt pillar count and scope to their context.
+At Level 4 and above, governance is organised as seven numbered prime directives. Each directive has defined scope and a fixed conflict resolution position. This is the reference architecture. Organisations adapt directive scope to their context but must preserve the conflict resolution order — it is the architecture's operating principle.
 
-| Pillar | Name | Scope |
-|--------|------|-------|
-| P0 | Data Protection | Client data isolation, PII handling, retention limits, placeholder enforcement |
-| P1 | Revenue Alignment | Value tiers, scope boundaries, proactive vs reactive build decisions |
-| P2 | Infrastructure Portability | Tenant strategy, SKU selection, cost targets, auth architecture |
-| P3 | Delivery Standards | Output quality, branding, turnaround SLAs, formatted wrapper requirements |
-| P4 | Operational Efficiency | Automation targets, JSON output schemas, template consumption patterns |
-| P5 | Security Controls | Secrets management, CORS, rate limiting, injection defence, pre-commit scanning |
-| P6 | Autonomous Operation | Turn limits, dry-run defaults, destructive operation prohibition, overnight safety, logging |
+| Directive | Name | Scope |
+|-----------|------|-------|
+| D0 | Data Protection | Client data isolation, PII handling, retention limits, placeholder enforcement |
+| D1 | Security Controls | Secrets management, CORS, rate limiting, injection defence, pre-commit scanning |
+| D2 | Autonomous Operation | Turn limits, dry-run defaults, destructive operation prohibition, overnight safety, logging |
+| D3 | Revenue Alignment | Value tiers, scope boundaries, proactive vs reactive build decisions |
+| D4 | Infrastructure Portability | Tenant strategy, SKU selection, cost targets, auth architecture |
+| D5 | Operational Efficiency | Automation targets, JSON output schemas, template consumption patterns |
+| D6 | Delivery Standards | Output quality, branding, turnaround SLAs, formatted wrapper requirements |
 
-**Conflict Resolution Order:** P0 > P6 > P1 > P2 > P4 > P3 > P5
+**Conflict Resolution Order:** D0 > D1 > D2 > D3 > D4 > D5 > D6
 
-Data protection wins unconditionally. Autonomous operation safety overrides business priorities. Revenue alignment overrides infrastructure and efficiency concerns. Security controls (P5) rank lower than business pillars because security is non-negotiable at all levels from Level 2 upward and does not require priority arbitration in the same way business rules do. Security requirements are baseline; they do not compete with other pillars.
+D0 wins unconditionally — no client data, PII, or confidential pricing leaves the boundary in any scenario. D1 (Security Controls) ranks second because a security failure causes irreversible harm and is non-negotiable from Level 2 onward; it does not compete with business directives, it precedes them. D2 (Autonomous Operation) wins over all business directives — an agent operating without supervision must not take destructive or irreversible actions regardless of business priority. D3 overrides D4, D5, and D6 — revenue-generating work takes precedence over infrastructure choices, efficiency optimisation, and delivery formatting.

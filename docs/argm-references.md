@@ -1,12 +1,11 @@
-# ARGM — References
+# ARGM: References
 
-**Source:** ARGM v1.0 DRAFT, Section 10
+**Version:** 1.1
+**Licence:** CC-BY-SA 4.0
 
 ---
 
-## 10. References
-
-### Verified Sources
+## Verified Sources
 
 - CMMI Institute / ISACA. CMMI Levels of Capability and Performance. https://cmmiinstitute.com/learning/appraisals/levels
 - NIST. AI Risk Management Framework (AI RMF 1.0). NIST AI 100-1. January 2023. https://www.nist.gov/itl/ai-risk-management-framework
@@ -25,7 +24,9 @@
 - Governance Architecture for Autonomous Agent Systems: Threats, Framework, and Engineering Practice. arXiv. 2026. https://arxiv.org/html/2603.07191v2
 - Salesforce. The Agentic Maturity Model: A 4-Step Roadmap for CIOs. April 2025. https://www.salesforce.com/news/stories/agentic-maturity-model/
 
-### Partially Verified (Exist but Independent Adoption Not Confirmed)
+---
 
-- AISMI-AISM Model (AI Strategy Management Institute, Stewart Wynter 2025): Strategy-centred AI maturity model across seven pillars and five stages. Technical report AISMI-TR-2025-001. Website: aisminstitute.com. Peer review and adoption evidence not confirmed.
+## Partially Verified (Exist but Independent Adoption Not Confirmed)
+
+- AISMI-AISM Model (AI Strategy Management Institute, Stewart Wynter 2025): Strategy-centred AI maturity model across prime directives and five stages. Technical report AISMI-TR-2025-001. Website: aisminstitute.com. Peer review and adoption evidence not confirmed.
 - AIGN Agentic AI Governance Framework 1.0 (July 2025): Five maturity levels with agentic trust scans. Published by AI Governance Network. Adoption beyond publishing organisation not confirmed.

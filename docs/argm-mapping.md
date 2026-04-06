@@ -1,12 +1,11 @@
-# ARGM — Cross-Framework Mapping
+# ARGM: Cross-Framework Mapping
 
-**Source:** ARGM v1.0 DRAFT, Section 6
+**Version:** 1.1
+**Licence:** CC-BY-SA 4.0
 
 ---
 
-## 6. Cross-Framework Mapping
-
-### ARGM to NIST CSF 2.0 Implementation Tiers
+## ARGM to NIST CSF 2.0 Implementation Tiers
 
 | ARGM Level | NIST CSF Tier | Rationale |
 |-----------|---------------|-----------|
@@ -17,7 +16,7 @@
 | 4 - Governed | Tier 3 - Repeatable | Formalised, consistent, cross-agent. |
 | 5 - Autonomous | Tier 4 - Adaptive | Self-monitoring, continuous improvement, automated adaptation. |
 
-### ARGM to CMMI Maturity Levels
+## ARGM to CMMI Maturity Levels
 
 | ARGM Level | CMMI Level | Rationale |
 |-----------|------------|-----------|
@@ -28,7 +27,7 @@
 | 4 - Governed | 4 Quantitatively Managed | Quantitative targets (cost budgets, turn limits, compliance metrics). |
 | 5 - Autonomous | 5 Optimizing | Continuous improvement through automated monitoring. |
 
-### ARGM to NIST AI RMF Functions
+## ARGM to NIST AI RMF Functions
 
 | ARGM Level | GOVERN | MAP | MEASURE | MANAGE |
 |-----------|--------|-----|---------|--------|
@@ -39,7 +38,7 @@
 | 4 | Full (unified) | Full (all dimensions) | Full (quantitative) | Full (conflict resolution) |
 | 5 | Self-governing | Continuously updated | Automated | Automated |
 
-### ARGM to ISO 42001 Clauses
+## ARGM to ISO 42001 Clauses
 
 | ISO 42001 Clause | First Addressed | Full Implementation |
 |------------------|----------------|---------------------|
@@ -51,7 +50,7 @@
 | 9. Performance evaluation | Level 3 | Level 5 |
 | 10. Improvement | Level 4 | Level 5 |
 
-### ARGM to AISM (Cyber Strategy Institute)
+## ARGM to AISM (Cyber Strategy Institute)
 
 | ARGM Level | AISM Level | Overlap | Divergence |
 |-----------|-----------|---------|------------|
@@ -59,10 +58,10 @@
 | 1 - Instructed | Chaos/Visibility boundary | ARGM addresses instruction quality; AISM addresses asset visibility | AISM's Ledger pillar starts earlier |
 | 2 - Secured | Visibility/Governance boundary | Both include input sanitisation, circuit breakers | AISM's five pillars cover security more broadly |
 | 3 - Aligned | Governance | Both establish governance | AISM does not include business value alignment or cost governance |
-| 4 - Governed | Control | Both describe comprehensive frameworks | AISM has 128 controls; ARGM has seven pillars |
+| 4 - Governed | Control | Both describe comprehensive frameworks | AISM has 128 controls; ARGM has prime directives |
 | 5 - Autonomous | Sovereignty | Both describe self-governing capability | AISM includes cryptographic identity; ARGM focuses on drift detection |
 
-### ARGM to Microsoft Agentic AI Adoption Maturity Model
+## ARGM to Microsoft Agentic AI Adoption Maturity Model
 
 | ARGM Level | Microsoft Level | Key Difference |
 |-----------|----------------|----------------|

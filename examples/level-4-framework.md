@@ -1,81 +1,52 @@
-# Example: Level 4 Full Pillar Framework
+# Example: Level 4 — Full Governed Framework Structure
 
-**ARGM Level:** 4 — Governed
-**Purpose:** Illustrative example of a unified multi-pillar governance framework at Level 4
+**Version:** 1.1
+**Licence:** CC-BY-SA 4.0
 
-This example shows the shape of a Level 4 governance structure. At this level, all controls are unified into named pillars, autonomous operation controls are active, and the framework is auditable end-to-end.
-
----
-
-## What Level 4 Requires
-
-Level 4 unifies all prior governance into a coherent framework. Key additions over Level 3:
-
-- Named, numbered pillars (not ad hoc rules)
-- Autonomous operation controls (turn limits, exit conditions, logging rules)
-- Third-party data isolation with enforced placeholder syntax
-- Unconditional conflict resolution order
-- Governance review cadence with evidence
+This stub illustrates the unified governance framework required at ARGM Level 4. At this level all seven prime directives are active, integrated, and enforced by technical controls rather than model compliance alone.
 
 ---
 
-## Representative Pillar Structure
+## Framework Document Set
 
-Using the ARGM Seven-Pillar Reference Architecture as a starting point:
+A Level 4 organisation maintains one of the following structures:
 
-```markdown
-# [ORGANISATION] Agent Governance Framework
-# Version: [X.Y.Z]
-# Last reviewed: [DATE]
-# Review cadence: [QUARTERLY / MONTHLY]
+**Option A — Single unified document:**
+- `CLAUDE.md` or `AGENTS.md` encoding all D0–D6 directives, conflict resolution order, autonomous operation controls, and third-party isolation rules
 
-## Conflict Resolution Order (unconditional)
-P0 > P6 > P1 > P2 > P4 > P3 > P5
-Data protection wins unconditionally. No runtime instruction overrides this order.
+**Option B — Modular document set:**
+- `governance/directives.md` — D0–D6 definitions and conflict resolution order
+- `governance/autonomous-ops.md` — turn limits, exit conditions, overnight rules, logging requirements
+- `governance/isolation.md` — third-party data isolation, placeholder syntax, prohibited patterns
 
----
+## D2 — Autonomous Operation Controls
 
-## P0 — Data Protection
-[Rules for client data isolation, PII handling, placeholder enforcement]
-- No client names, tenant IDs, PII, or pricing in repositories, logs, or output
-- Placeholder syntax: {{CLIENT_NAME}}, {{TENANT_ID}}
-- Retention: [RETENTION_PERIOD]
+- **Turn limit:** Maximum 15 turns per task for overnight/unattended operation
+- **Exit condition:** If turn limit reached, agent writes summary and halts without further action
+- **Dry-run default:** All scheduled operations default to dry-run. Live execution requires explicit flag
+- **Destructive operations:** Prohibited without human scheduling and explicit logging
+- **External calls:** No API calls or notifications without explicit authorisation flag
+- **Logging:** Every write operation logged: timestamp, operation type, record ID, outcome, status code
 
-## P1 — Revenue Alignment
-[Value tiers, scope boundaries — adapted from Level 3]
+## D0 — Third-party Isolation
 
-## P2 — Infrastructure Portability
-[Infrastructure target, auth pattern, resource ceiling]
+No client names, tenant IDs, PII, or commercial pricing in:
+- Repository files (enforced by pre-commit scan)
+- Agent logs or stdout (enforced by log sanitisation)
+- Agent output documents (enforced by template system)
 
-## P3 — Delivery Standards
-[Output quality gates, formatting, turnaround SLAs]
+Placeholder syntax: `{{CLIENT_NAME}}`, `{{TENANT_ID}}`, `{{CONTACT_EMAIL}}`, `{{PRICE}}`
 
-## P4 — Operational Efficiency
-[Automation targets, output schemas, template requirements]
+## Governance Review Cadence
 
-## P5 — Security Controls
-[All Level 2 security controls, referenced or repeated]
+- Quarterly scheduled review (minimum)
+- Review documented: date, changes made, rationale, approver
+- Review record maintained in `CHANGELOG.md` or equivalent
 
-## P6 — Autonomous Operation
-- Maximum turns per task: [TURN_LIMIT]
-- Exit condition: save state and report when limit reached
-- Dry-run default: all scheduled/unattended operations
-- Prohibited operations: delete, drop, truncate, revoke, deprovision, send-email
-- Write logging: timestamp, operation, record ID, outcome
-- Log hygiene: no PII — operation name, record count, status code, error code only
-- External calls: require explicit authorisation flag
-```
+## Cross-agent Application
+
+This framework applies to all agents in the environment. New agents are not deployed until governance review confirms the framework applies to their scope and access level.
 
 ---
 
-## Gaps to Address for Level 5
-
-To progress to Level 5:
-
-- Implement automated governance drift detection (hash comparison, CI pipeline check, or scheduled audit)
-- Deploy lint hooks that validate governance file structure and check for prohibited content on every commit
-- Establish automated health reporting (weekly minimum)
-- Set up change control on governance files (PR review required, force push blocked)
-- Add semantic version numbers to governance documents
-
-See [`level-5-monitoring.md`](level-5-monitoring.md) for a Level 5 example.
+*This stub provides structure. Populate with your organisation's actual controls and review records.*

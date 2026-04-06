@@ -1,24 +1,25 @@
-# ARGM — Gap Analysis vs Existing Models
+# ARGM: Gap Analysis vs Existing Models
 
-**Source:** ARGM v1.0 DRAFT, Section 7
+**Version:** 1.1
+**Licence:** CC-BY-SA 4.0
 
 ---
 
-## 7. Gap Analysis vs Existing Models
-
-### Where ARGM Goes Further
+## Where ARGM Goes Further
 
 | Gap | Detail |
 |-----|--------|
 | **Business value alignment** | Level 3 introduces value alignment tiers, scope boundaries, and priority classification. No existing model treats business value as a governance dimension for runtime agent behaviour. |
 | **Cost governance** | Level 3 requires token budgets, compute cost tracking, and evidence of cost-informed decisions. No surveyed framework includes cost governance as a maturity dimension. |
 | **Delivery standards** | Level 3 defines output quality gates, branded templates, turnaround SLAs. Relevant for professional services delivery. Not addressed by any surveyed framework. |
-| **Conflict resolution order** | Level 3 requires documented priority sequence. Level 4 requires unconditional enforcement. AISM pillars have implied hierarchy but no explicit conflict resolution. |
+| **Prime directive conflict resolution order** | Level 3 activates and documents the full D0–D6 directive order. Level 4 requires unconditional enforcement with no runtime exceptions. AISM pillars have implied hierarchy but no explicit conflict resolution order and no directive numbering convention. |
 | **Dry-run defaults and turn limits** | Level 3 requires dry-run defaults. Level 4 requires turn limits and clean exit conditions. AISM's Circuit Breaker pillar includes kill switches but not dry-run defaults or turn limits as governance controls. |
 | **Overnight safety rules** | Level 4 defines a specific rule set for unattended operation. Not addressed as a distinct category by any surveyed model. |
 | **Governance self-monitoring** | Level 5 requires automated drift detection, lint hooks, automated health reporting. AISM monitors for threats; ARGM monitors for governance erosion. |
 
-### Where Existing Models Go Further Than ARGM
+---
+
+## Where Existing Models Go Further Than ARGM
 
 | Gap | Model | Detail |
 |-----|-------|--------|
@@ -30,7 +31,9 @@
 | **Fairness and bias** | NIST AI RMF, ISO 42001 | ARGM governs what agents do, not the equity of their outputs. Fairness belongs in lifecycle governance. |
 | **Certification pathway** | ISO 42001 | Third-party certification available. ARGM is self-assessment only. |
 
-### Consolidated: What ARGM Addresses That No Single Existing Model Does
+---
+
+## Consolidated: What ARGM Addresses That No Single Existing Model Does
 
 1. Runtime governance of agentic AI as a standalone maturity domain
 2. Business value alignment as a governance dimension (not adoption, not strategy)

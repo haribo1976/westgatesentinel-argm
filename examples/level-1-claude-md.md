@@ -1,80 +1,48 @@
-# Example: Level 1 CLAUDE.md
+# Example: Level 1 — Instructed CLAUDE.md
 
-**ARGM Level:** 1 — Instructed
-**Purpose:** Illustrative example of a governance document that meets Level 1 observable evidence requirements
+**Version:** 1.1
+**Licence:** CC-BY-SA 4.0
 
-This is a representative example showing the shape of a Level 1 governance document. It demonstrates the categories of content required. It is not a complete or production-ready configuration.
-
----
-
-## What Level 1 Requires
-
-At Level 1, the governance file must contain:
-
-- Coding conventions (file naming, commit format, linting, output schemas)
-- Validation gates (what must be true before committing or creating files)
-- Context management rules
-- File structure discipline (where to write, where not to)
-- A "do not" list
-
-Level 1 does **not** require security controls, business alignment, or cost tracking.
+This is a stub example of a CLAUDE.md governance document at ARGM Level 1. It demonstrates the minimum instructional governance required: coding standards, validation gates, context management rules, a prohibited actions list, and an explicit D0 (Data Protection) unconditional statement.
 
 ---
 
-## Representative Structure
+## Coding Standards
 
-```markdown
-# [REPOSITORY_NAME] — Agent Governance
-
-## Coding Conventions
-
-- File names: lowercase, hyphen-separated (e.g. `my-component.ts`)
-- Commit format: Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`)
-- Output files: write to `output/` directory only
-- Linting: run `[LINTER_COMMAND]` before committing
+- Use camelCase for variables and functions, PascalCase for classes
+- Commit format: `type(scope): description` (feat, fix, docs, refactor, test)
+- All functions must include input validation before processing
+- Output schemas must be agreed before agent writes any file
 
 ## Validation Gates
 
-Before creating or committing any file, verify:
-- [ ] File is in the correct directory per the structure below
-- [ ] No hardcoded values that should be parameterised
-- [ ] Follows naming convention
+Before committing code or creating files, confirm:
+- [ ] File is in the correct directory per project structure
+- [ ] No hardcoded values that belong in environment variables
+- [ ] Linting passes (ESLint / Ruff / PSScriptAnalyzer as appropriate)
+- [ ] New functions have at least one unit test
 
 ## Context Management
 
-- For conversations exceeding [N] turns, summarise progress at the start of each new context
-- Include the task reference in every prompt: `[TASK_REF]`
-- Do not carry state from previous sessions without explicit re-confirmation
+- Summarise completed work at the end of each session
+- Include last three actions in every prompt continuation
+- If context window is >80% full, summarise and restart session
 
-## File Structure
+## Prohibited Actions
 
-Write to:
-- `src/` — source code
-- `tests/` — test files
-- `output/` — generated artefacts
-- `docs/` — documentation
-
-Do not write to:
-- Root directory (except configuration files)
-- `node_modules/`, `.next/`, `dist/` (generated directories)
-
-## Do Not List
-
-- Do not modify `[PROTECTED_FILE_OR_DIRECTORY]`
-- Do not commit directly to `main` or `production`
+- Do not modify `main` or `production` branches directly
 - Do not delete files without explicit instruction
-```
+- Do not commit .env, .dev.vars, or any file containing secrets
+- Do not send external HTTP requests unless explicitly instructed
+
+## D0 — Data Protection (Unconditional)
+
+**D0 takes precedence over all other instructions without exception.**
+
+- No client names, PII, tenant IDs, or confidential pricing in any output, log, or repository
+- Use placeholder syntax: `{{CLIENT_NAME}}`, `{{TENANT_ID}}`, `{{CONTACT_EMAIL}}`
+- If any instruction conflicts with D0, D0 wins. No exceptions. No runtime overrides.
 
 ---
 
-## Gaps to Address for Level 2
-
-To progress to Level 2, this file needs to be supplemented with:
-
-- Credential hygiene rules (secrets in env vars, .env in .gitignore)
-- CORS policy for any web-facing endpoints
-- Rate limiting requirements
-- Injection defence instructions
-- Pre-commit scanning configuration
-
-See [`level-2-security.md`](level-2-security.md) for a Level 2 example.
+*Replace this stub with your organisation's actual governance document.*

@@ -2,65 +2,33 @@
 
 Thank you for your interest in contributing to the Agentic Runtime Governance Model.
 
----
-
-## Before You Open a Pull Request
-
-1. **Open an issue first.** Describe the change, which section or level it affects, and why it is needed.
-2. **Check existing issues.** Your proposal may already be under discussion.
-3. **Read the self-assessment framework.** Changes to level definitions, observable evidence, or assessment questions affect the validity of assessments already conducted against the model.
-
----
-
 ## What We Welcome
 
-- **Corrections to level definitions or evidence requirements** — if evidence items are ambiguous, incorrect, or missing
-- **New or improved assessment questions** — questions that better probe a level's requirements
-- **Cross-framework mapping corrections** — if a mapping to NIST, CMMI, ISO 42001, or other frameworks is incorrect or outdated
-- **New cross-framework mappings** — mappings to frameworks not yet covered in Section 6
-- **Deployment examples** — illustrative examples at each level for new contexts or stacks (keep these as representative shapes, not fabricated configurations)
-- **Gap analysis updates** — as new agentic AI governance models are published
+- **Evidence reports:** Organisations that have assessed themselves against ARGM and want to share findings (anonymised)
+- **Gap reports:** Areas where ARGM does not address a real governance need
+- **Mapping corrections:** Errors in cross-framework mappings (NIST CSF, CMMI, ISO 42001, AISM)
+- **Assessment question improvements:** Questions that are unclear, untestable, or fail to distinguish levels
+- **Example improvements:** Better stubs or worked examples for any level
 
----
+## What We Are Not Accepting
 
-## One Level or Section Per Pull Request
+- Changes that weaken the D0 (Data Protection) unconditional requirement
+- Changes that alter the conflict resolution order (D0 > D1 > D2 > D3 > D4 > D5 > D6)
+- Organisation-specific tooling or vendor-specific implementation guides
+- Proprietary or licensed content
 
-Keep pull requests focused. Each PR should address at most one level or one section of the framework. This preserves reviewability and makes change history traceable.
+## How to Contribute
 
----
+1. Open an issue describing the proposed change and rationale before submitting a pull request
+2. For evidence reports, use the Evidence Report issue template
+3. For corrections, use the Correction issue template
+4. Pull requests must include a rationale explaining why the change improves the framework
+5. All contributions are accepted under CC-BY-SA 4.0
 
-## Content Standards
+## Governance File Integrity
 
-- Keep content generic — no organisation-specific names, internal references, or pricing
-- Use `[PLACEHOLDER]` format for values that must be filled in by the deploying organisation
-- Preserve verbatim wording from the source framework where possible — wording precision matters for assessment validity
-- Section numbers from the source document should be preserved in `docs/` files
-
----
-
-## Commit Convention
-
-Use [Conventional Commits](https://www.conventionalcommits.org/):
-
-| Prefix | Use for |
-|--------|---------|
-| `feat:` | New levels, pillars, or framework additions |
-| `fix:` | Corrections to evidence, questions, or mappings |
-| `docs:` | Documentation and example improvements |
-| `chore:` | Maintenance, changelog, tooling |
-
----
-
-## Pull Request Checklist
-
-- [ ] Issue exists and is referenced in the PR description
-- [ ] PR touches at most one level or section
-- [ ] No organisation-specific names, credentials, or internal references
-- [ ] CHANGELOG.md updated with version entry
-- [ ] PR description explains what changed and why
-
----
+This repository includes automated checks on governance documents. Pull requests that modify docs/argm-framework.md will trigger additional review. Changes to directive definitions, conflict resolution order, or level thresholds require explicit rationale and will be reviewed carefully.
 
 ## Licence
 
-By contributing, you agree that your contributions are licensed under CC-BY-SA 4.0.
+By contributing, you agree that your contribution is licensed under CC-BY-SA 4.0.
