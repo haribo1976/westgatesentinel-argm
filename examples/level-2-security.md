@@ -1,6 +1,6 @@
 # Example: Level 2 — Secured Controls Configuration
 
-**Version:** 1.1
+**Version:** 2.0
 **Licence:** CC-BY-SA 4.0
 
 This stub illustrates the technical controls required at ARGM Level 2. Replace with your actual configuration artefacts.
