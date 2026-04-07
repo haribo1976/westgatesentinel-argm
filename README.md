@@ -1,39 +1,51 @@
 # ARGM: Agentic Runtime Governance Model
 
-**Version:** 1.1 | **Licence:** CC-BY-SA 4.0 | **Date:** 2026-04-06
+**Version:** 2.0 | **Licence:** CC-BY-SA 4.0 | **Date:** 2026-04-06
 
-ARGM provides a six-level maturity framework for assessing how organisations govern AI agents at runtime. It addresses the operational gap between existing AI governance frameworks (NIST AI RMF, ISO 42001, CMMI) and the reality of agents that write files, execute shell commands, invoke APIs, and make irreversible system state changes.
+ARGM provides a seven-level maturity framework (0–6) for assessing how organisations govern AI agents at runtime. It is a domain-specific maturity profile, built on CMMI's structural conventions, that addresses the operational gap between existing AI governance frameworks and the reality of agents that write files, execute shell commands, invoke APIs, and make irreversible system state changes.
+
+ARGM complements ISO 42001 (AI management system), NIST AI RMF (risk management), and AISM (agent security). It does not replace them.
 
 ---
 
-## Six-Level Maturity Summary
+## Seven-Level Maturity Summary
 
 | Level | Name | Definition |
 |-------|------|-----------|
 | 0 | Ungoverned | No runtime governance. Agent operates on default model behaviour. |
-| 1 | Instructed | Basic prompt-level governance. Coding standards, validation gates, behavioural expectations. Enforcement relies on model compliance. |
-| 2 | Secured | D1 (Security Controls) enforced. Credential hygiene, injection defence, CORS, rate limiting, pre-commit scanning enforced as technical controls. |
-| 3 | Aligned | All seven directives active. Value alignment tiers, scope boundaries, cost governance, delivery standards. Full D0–D6 conflict resolution order declared unconditional. |
-| 4 | Governed | All directives integrated. Autonomous operation controls (turn limits, dry-run defaults, overnight safety). Conflict resolution unconditional. Framework auditable end-to-end. |
-| 5 | Autonomous | Framework governs itself. Automated drift detection, lint hooks, health reporting. Continuous assurance without manual audit. |
+| 1 | Instructed | Prompt-level governance. Coding standards, validation gates, behavioural expectations. |
+| 2 | Secured | D0 (Data Protection) and D1 (Security Controls) enforced by technical controls. |
+| 3 | Controlled | D2 (Autonomous Operation) enforced. Turn limits, dry-run defaults, destructive operation prohibition. |
+| 4 | Aligned | D3–D6 (Business Directives) active. Value alignment, cost governance, delivery standards. Sector-configurable ordering. |
+| 5 | Governed | All directives integrated. Break-glass exception mechanism. Cross-agent consistency. Auditable end-to-end. |
+| 6 | Autonomous | Framework governs itself. Drift detection, automated health reporting, three-layer assurance. |
 
 ---
 
-## Prime Directive Architecture (D0–D6)
+## Two-Tier Directive Architecture
 
-At Level 4 and above, governance is organised as seven numbered prime directives. The number encodes conflict resolution priority: **D0 wins unconditionally. D6 has lowest priority.**
+Governance directives are split into two tiers with different conflict resolution rules and different escalation paths.
+
+**Tier 1 — Safety (unconditional):**
 
 | Directive | Name | Scope |
 |-----------|------|-------|
-| D0 | Data Protection | Client data isolation, PII handling, retention limits, placeholder enforcement |
-| D1 | Security Controls | Secrets management, CORS, rate limiting, injection defence, pre-commit scanning |
-| D2 | Autonomous Operation | Turn limits, dry-run defaults, destructive operation prohibition, overnight safety, logging |
-| D3 | Revenue Alignment | Value tiers, scope boundaries, proactive vs reactive build decisions |
-| D4 | Infrastructure Portability | Tenant strategy, SKU selection, cost targets, auth architecture |
-| D5 | Operational Efficiency | Automation targets, JSON output schemas, template consumption patterns |
-| D6 | Delivery Standards | Output quality, branding, turnaround SLAs, formatted wrapper requirements |
+| D0 | Data Protection | Client data isolation, PII handling, retention limits |
+| D1 | Security Controls | Secrets management, CORS, rate limiting, injection defence |
+| D2 | Autonomous Operation | Turn limits, dry-run defaults, destructive operation prohibition |
 
-**Conflict Resolution Order:** D0 > D1 > D2 > D3 > D4 > D5 > D6 — unconditional, no runtime exceptions.
+Conflict resolution: D0 > D1 > D2. No exceptions. No break-glass.
+
+**Tier 2 — Business (sector-configurable):**
+
+| Directive | Name | Scope |
+|-----------|------|-------|
+| D3 | Value Alignment | Value tiers, scope boundaries, build decisions |
+| D4 | Infrastructure Governance | Tenant strategy, cost targets, auth architecture |
+| D5 | Operational Efficiency | Automation targets, output schemas |
+| D6 | Delivery Standards | Output quality, formatting, turnaround expectations |
+
+Default order: D3 > D4 > D5 > D6. Organisations may reorder with documented rationale. Tier 2 never overrides Tier 1. Break-glass is available at Level 5 and above for Tier 2 directives only.
 
 ---
 
@@ -41,7 +53,7 @@ At Level 4 and above, governance is organised as seven numbered prime directives
 
 ### 1. Establish your current level
 
-Read the [assessment template](assessment/assessment-template.md) and answer all five questions for each level with evidence. Use the [scoring guide](assessment/scoring-guide.md) to determine your current ARGM level.
+Read the [assessment template](assessment/assessment-template.md) and answer all questions for each level with evidence. Use the [scoring guide](assessment/scoring-guide.md) to determine your current ARGM level.
 
 ### 2. Identify gaps
 
@@ -53,7 +65,7 @@ Use the [examples](examples/) as stubs for each level. Adapt to your tools and c
 
 ### 4. Verify
 
-A level is achieved when all five assessment questions score ≥1 and at least three score 2. Evidence must be artefact-based — claims without artefacts do not count.
+A level is achieved when all assessment questions score ≥1 and at least three score 2. Evidence must be artefact-based — claims without artefacts do not count.
 
 ---
 
@@ -61,25 +73,27 @@ A level is achieved when all five assessment questions score ≥1 and at least t
 
 ```
 argm/
-├── README.md                      # This file
-├── LICENCE                        # CC-BY-SA 4.0
-├── CHANGELOG.md                   # Version history
+├── README.md
+├── LICENCE
+├── CHANGELOG.md
 ├── docs/
 │   ├── argm-framework.md          # Full framework — Sections 1–5
-│   ├── argm-mapping.md            # Cross-framework mapping
+│   ├── argm-mapping.md            # Cross-framework mapping + generic agent guide
 │   ├── argm-gap-analysis.md       # Gap analysis vs existing models
-│   ├── argm-naming.md             # Naming rationale
+│   ├── argm-naming.md             # Naming rationale and structural heritage
 │   └── argm-references.md         # References
 ├── assessment/
-│   ├── assessment-template.md     # All assessment questions, Levels 0–5
+│   ├── assessment-template.md     # All assessment questions, Levels 0–6
 │   ├── evidence-checklist.md      # All observable evidence items
 │   └── scoring-guide.md           # Scoring methodology
 ├── examples/
-│   ├── level-1-claude-md.md       # Level 1: example governance document
-│   ├── level-2-security.md        # Level 2: security controls configuration
-│   ├── level-3-directives.md      # Level 3: prime directives and value alignment
-│   ├── level-4-framework.md       # Level 4: full governed framework structure
-│   └── level-5-monitoring.md      # Level 5: governance self-monitoring
+│   ├── level-1-claude-md.md
+│   ├── level-2-security.md
+│   ├── level-3-directives.md      # Autonomous operation controls
+│   ├── level-4-aligned.md         # Business directives + cost governance
+│   ├── level-5-governed.md        # Full framework + break-glass
+│   ├── level-6-autonomous.md      # Self-monitoring + regress solution
+│   └── wsc-reference-implementation.md  # WSC-specific agent mapping
 └── .github/
     ├── CONTRIBUTING.md
     └── ISSUE_TEMPLATE/
@@ -89,15 +103,28 @@ argm/
 
 ## Design Rationale
 
-ARGM addresses five gaps identified across surveyed models:
+ARGM addresses three gaps not covered by existing models in combination:
 
-1. **Agentic autonomy controls** — turn limits, dry-run defaults, destructive operation prohibition, overnight safety rules
-2. **Multi-agent scope bounding** — what each agent is permitted to build, proactive vs reactive
-3. **Runtime self-monitoring** — automated verification that governance documents have not been weakened
-4. **Business value alignment** — agent effort maps to organisational priorities, treated as a governance dimension
-5. **Cost governance** — token budgets and compute cost tracking as first-class maturity requirements
+1. **Runtime governance self-monitoring** — automated detection of governance document weakening
+2. **Business value alignment as governance** — agent effort mapped to organisational priorities as a governance control
+3. **Cost governance** — token budgets, model selection, and cost attribution as maturity requirements
 
-Full rationale, research foundation, and cross-framework mappings are in [docs/argm-framework.md](docs/argm-framework.md).
+ARGM is built on CMMI's maturity structure by design. Full rationale, research foundation, and cross-framework mappings in [docs/argm-framework.md](docs/argm-framework.md).
+
+---
+
+## Positioning
+
+ARGM is:
+- A domain-specific CMMI profile for AI agent runtime governance
+- Self-assessment only (no certification pathway)
+- Complementary to ISO 42001, NIST AI RMF, and AISM
+
+ARGM is not:
+- A threat model (see AISM Agent Threat and Control Matrix)
+- A lifecycle governance framework (see ISO 42001)
+- An adoption maturity model (see Microsoft Agentic AI Adoption Model)
+- An incident response framework (see NIST CSF Respond)
 
 ---
 

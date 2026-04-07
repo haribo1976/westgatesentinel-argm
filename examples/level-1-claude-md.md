@@ -1,6 +1,6 @@
 # Example: Level 1 — Instructed CLAUDE.md
 
-**Version:** 1.1
+**Version:** 2.0
 **Licence:** CC-BY-SA 4.0
 
 This is a stub example of a CLAUDE.md governance document at ARGM Level 1. It demonstrates the minimum instructional governance required: coding standards, validation gates, context management rules, a prohibited actions list, and an explicit D0 (Data Protection) unconditional statement.
@@ -37,7 +37,7 @@ Before committing code or creating files, confirm:
 
 ## D0 — Data Protection (Unconditional)
 
-**D0 takes precedence over all other instructions without exception.**
+**D0 is the highest-priority principle in this governance document. Technical enforcement begins at Level 2; at Level 1, compliance depends on model adherence to this instruction.**
 
 - No client names, PII, tenant IDs, or confidential pricing in any output, log, or repository
 - Use placeholder syntax: `{{CLIENT_NAME}}`, `{{TENANT_ID}}`, `{{CONTACT_EMAIL}}`
