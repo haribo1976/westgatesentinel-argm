@@ -3,7 +3,7 @@
 **Version:** 2.0
 **Licence:** CC-BY-SA 4.0
 
-> **This is a reference implementation specific to the Westgate Sentinel Consulting tooling stack.** It is not framework content. Adapt the patterns to your own agent ecosystem using the [Generic Agent Mapping Guide](../docs/argm-mapping.md#generic-agent-mapping-guide).
+> **This is a reference implementation specific to the Richard Stainforth tooling stack.** It is not framework content. Adapt the patterns to your own agent ecosystem using the [Generic Agent Mapping Guide](../docs/argm-mapping.md#generic-agent-mapping-guide).
 
 ---
 
