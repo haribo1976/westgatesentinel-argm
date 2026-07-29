@@ -93,7 +93,7 @@ argm/
 │   ├── level-4-aligned.md         # Business directives + cost governance
 │   ├── level-5-governed.md        # Full framework + break-glass
 │   ├── level-6-autonomous.md      # Self-monitoring + regress solution
-│   └── wsc-reference-implementation.md  # WSC-specific agent mapping
+│   └── wsc-reference-implementation.md  # assessor-specific agent mapping
 └── .github/
     ├── CONTRIBUTING.md
     └── ISSUE_TEMPLATE/

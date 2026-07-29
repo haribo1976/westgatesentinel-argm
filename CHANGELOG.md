@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Two-tier directive architecture.** Tier 1 (D0-D2: Safety) is unconditional. Tier 2 (D3-D6: Business) is sector-configurable with documented rationale. Tier 2 never overrides Tier 1.
 - **D3 renamed** from "Revenue Alignment" to "Value Alignment" (sector-neutral).
 - **D4 renamed** from "Infrastructure Portability" to "Infrastructure Governance" (broader scope).
-- **Per-agent mapping moved** from `docs/argm-mapping.md` to `examples/wsc-reference-implementation.md` and labelled as WSC-specific reference, not framework content.
+- **Per-agent mapping moved** from `docs/argm-mapping.md` to `examples/wsc-reference-implementation.md` and labelled as assessor-specific reference, not framework content.
 - **Example files renamed:** `level-4-framework.md` → `level-5-governed.md`, `level-5-monitoring.md` → `level-6-autonomous.md`.
 
 ### Added

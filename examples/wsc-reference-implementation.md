@@ -1,4 +1,4 @@
-# WSC Reference Implementation — Per-Agent Directive Enforcement
+# assessor Reference Implementation — Per-Agent Directive Enforcement
 
 **Version:** 2.0
 **Licence:** CC-BY-SA 4.0
